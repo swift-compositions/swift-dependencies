@@ -20,7 +20,8 @@ public struct __DependencyValues: Sendable {
 extension __DependencyValues {
 
     @inlinable
-    public subscript<K: Witness.Key>(key: K.Type) -> K.Value where K.Value: Copyable {
+    public subscript<K: Witness.Key>(key: K.Type) -> K.Value
+    where K.Value: Copyable & Escapable {
         get { Witness.Context[key] }
         set { _witnessValues[key] = newValue }
     }
@@ -29,7 +30,8 @@ extension __DependencyValues {
 extension __DependencyValues {
 
     @inlinable
-    public subscript<K: Witness.Key.Test>(key: K.Type) -> K.Value where K.Value: Copyable {
+    public subscript<K: Witness.Key.Test>(key: K.Type) -> K.Value
+    where K.Value: Copyable & Escapable {
         get { Witness.Context[key] }
         set { _witnessValues[key] = newValue }
     }
@@ -38,7 +40,8 @@ extension __DependencyValues {
 extension __DependencyValues {
 
     @inlinable
-    public subscript<K: __DependencyKey>(key: K.Type) -> K.Value where K.Value: Copyable {
+    public subscript<K: __DependencyKey>(key: K.Type) -> K.Value
+    where K.Value: Copyable & Escapable {
         get { _l1Values[K.self] }
         set { _l1Values[K.self] = newValue }
     }
