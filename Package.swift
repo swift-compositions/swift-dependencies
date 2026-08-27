@@ -22,8 +22,8 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-foundations/swift-witnesses.git", branch: "main"),
-        .package(url: "https://github.com/swift-foundations/swift-environment.git", branch: "main"),
+        .package(url: "https://github.com/swift-compositions/swift-witnesses.git", branch: "main"),
+        .package(url: "https://github.com/swift-compositions/swift-environment.git", branch: "main"),
     ],
     targets: [
         .target(

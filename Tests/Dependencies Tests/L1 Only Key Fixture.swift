@@ -1,4 +1,4 @@
-import Dependency_Primitives
+import Dependency
 
 enum L1OnlyKey: Dependency.Key {
     static var liveValue: String { "l1-live" }

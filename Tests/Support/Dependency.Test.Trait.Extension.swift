@@ -1,7 +1,7 @@
 #if canImport(Testing) && compiler(>=6)
     public import Testing
     public import Dependencies
-    internal import Reference_Primitives
+    internal import Reference
 
     extension Trait where Self == __DependencyTestTrait {
 

@@ -1,16 +1,16 @@
-public import Dependency_Primitives
+public import Dependency
 public import Witnesses
 
 public struct __DependencyValues: Sendable {
 
     public var _witnessValues: Witness.Values
 
-    public var _l1Values: Dependency_Primitives.Dependency.Values
+    public var _l1Values: Dependency.Dependency.Values
 
     @inlinable
     public init(
         _witnessValues: Witness.Values = Witness.Values(),
-        _l1Values: Dependency_Primitives.Dependency.Values = .init()
+        _l1Values: Dependency.Dependency.Values = .init()
     ) {
         self._witnessValues = _witnessValues
         self._l1Values = _l1Values

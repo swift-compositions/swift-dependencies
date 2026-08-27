@@ -1,4 +1,4 @@
-import Dependency_Primitives
+import Dependency
 internal import Environment
 public import Witnesses
 
@@ -15,7 +15,7 @@ extension __DependencyContext {
     public static var current: __DependencyValues {
         __DependencyValues(
             _witnessValues: Witness.Context.current,
-            _l1Values: Dependency_Primitives.Dependency.Scope.current
+            _l1Values: Dependency.Dependency.Scope.current
         )
     }
 

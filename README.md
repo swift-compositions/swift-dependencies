@@ -65,7 +65,7 @@ let outcome = withDependencies {
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main")
+    .package(url: "https://github.com/swift-compositions/swift-dependencies.git", branch: "main")
 ]
 ```
 
@@ -93,7 +93,7 @@ Two library products. Module import names replace spaces with underscores (`impo
 
 A ready-made `\.clock` dependency (a real clock when live, an immediate clock
 in tests and previews) lives in
-[swift-clocks-dependencies](https://github.com/swift-foundations/swift-clocks-dependencies).
+[swift-clocks-dependencies](https://github.com/swift-compositions/swift-clocks-dependencies).
 
 ---
 

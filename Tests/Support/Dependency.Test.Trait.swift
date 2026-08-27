@@ -1,7 +1,7 @@
 #if canImport(Testing) && compiler(>=6)
     public import Testing
     public import Dependencies
-    public import Dependency_Primitives
+    public import Dependency
     public import Witnesses
 
     @_documentation(visibility: private)
@@ -27,7 +27,7 @@
                     if Self.isRoot {
                         witnessValues = Witness.Values()
 
-                        l1Values = Dependency_Primitives.Dependency.Values.forTesting()
+                        l1Values = Dependency.Dependency.Values.forTesting()
                     }
                     var depValues = __DependencyValues(_witnessValues: witnessValues, _l1Values: l1Values)
                     updateValues(&depValues)
