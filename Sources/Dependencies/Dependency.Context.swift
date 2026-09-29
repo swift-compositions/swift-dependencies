@@ -18,7 +18,7 @@ extension __DependencyContext {
         let prepared = root.values.withLock { $0 }
         return __DependencyValues(
             _witnessValues: prepared.map { $0.merging(scoped) } ?? scoped,
-            _l1Values: Dependency.Dependency.Scope.current
+            _l1Values: Dependency::Dependency.Scope.current
         )
     }
 

@@ -31,7 +31,7 @@
                         if isRoot {
                             witnessValues = Witness.Values()
 
-                            l1Values = Dependency.Dependency.Values.forTesting()
+                            l1Values = Dependency::Dependency.Values.forTesting()
                         }
                         var depValues = __DependencyValues(
                             _witnessValues: witnessValues,

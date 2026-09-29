@@ -24,7 +24,7 @@ public func prepareDependencies<R, E: Swift.Error>(
     let root = __DependencyContext.root
     var values = __DependencyValues(
         _witnessValues: root.values.withLock { $0 } ?? Witness.Values(),
-        _l1Values: Dependency.Dependency.Scope.current
+        _l1Values: Dependency::Dependency.Scope.current
     )
     let result = try update(&values)
     root.values.withLock { prepared in

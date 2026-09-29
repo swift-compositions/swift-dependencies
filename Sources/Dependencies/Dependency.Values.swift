@@ -5,14 +5,14 @@ public struct __DependencyValues: Sendable {
 
     public var _witnessValues: Witness.Values
 
-    public var _l1Values: Dependency.Dependency.Values
+    public var _l1Values: Dependency::Dependency.Values
 
     public var _mode: Witness.Context.Mode?
 
     @inlinable
     public init(
         _witnessValues: Witness.Values = Witness.Values(),
-        _l1Values: Dependency.Dependency.Values = .init(),
+        _l1Values: Dependency::Dependency.Values = .init(),
         _mode: Witness.Context.Mode? = nil
     ) {
         self._witnessValues = _witnessValues
