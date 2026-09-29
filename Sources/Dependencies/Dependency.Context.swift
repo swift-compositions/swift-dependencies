@@ -1,4 +1,5 @@
 import Dependency
+internal import Synchronization
 internal import Environment
 public import Witnesses
 
@@ -13,8 +14,10 @@ extension __DependencyContext {
     }
 
     public static var current: __DependencyValues {
-        __DependencyValues(
-            _witnessValues: Witness.Context.current,
+        let scoped = Witness.Context.current
+        let prepared = root.values.withLock { $0 }
+        return __DependencyValues(
+            _witnessValues: prepared.map { $0.merging(scoped) } ?? scoped,
             _l1Values: Dependency.Dependency.Scope.current
         )
     }

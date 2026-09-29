@@ -1,44 +1,25 @@
-public import Dependency
 public import Witnesses
 
 @inlinable
 public func withDependencies<T, E: Swift.Error>(
-    _ modify: (inout __DependencyValues) -> Void,
+    _ update: (inout __DependencyValues) throws(E) -> Void,
     operation: () throws(E) -> T
 ) throws(E) -> T {
-    try Witness.Context._withScope(
-        { witnessValues, l1Values in
-            var depValues = __DependencyValues(
-                _witnessValues: witnessValues,
-                _l1Values: l1Values
-            )
-            modify(&depValues)
-            witnessValues = depValues._witnessValues
-            l1Values = depValues._l1Values
-        },
-        operation: operation
-    )
+    var values = __DependencyContext.current
+    try update(&values)
+    return try values._scope(operation)
 }
 
 @inlinable
 nonisolated(nonsending)
     public func withDependencies<T, E: Swift.Error>(
-        _ modify: (inout __DependencyValues) -> Void,
+        _ update: (inout __DependencyValues) throws(E) -> Void,
         operation: nonisolated(nonsending) () async throws(E) -> T
     ) async throws(E) -> T
 {
-    try await Witness.Context._withScope(
-        { witnessValues, l1Values in
-            var depValues = __DependencyValues(
-                _witnessValues: witnessValues,
-                _l1Values: l1Values
-            )
-            modify(&depValues)
-            witnessValues = depValues._witnessValues
-            l1Values = depValues._l1Values
-        },
-        operation: operation
-    )
+    var values = __DependencyContext.current
+    try update(&values)
+    return try await values._scope(operation)
 }
 
 @inlinable
@@ -47,21 +28,10 @@ public func withDependencies<T, E: Swift.Error>(
     _ modify: ((inout __DependencyValues) -> Void)? = nil,
     operation: () throws(E) -> T
 ) throws(E) -> T {
-    try Witness.Context._withScope(
-        mode: mode,
-        { witnessValues, l1Values in
-            if let modify {
-                var depValues = __DependencyValues(
-                    _witnessValues: witnessValues,
-                    _l1Values: l1Values
-                )
-                modify(&depValues)
-                witnessValues = depValues._witnessValues
-                l1Values = depValues._l1Values
-            }
-        },
-        operation: operation
-    )
+    var values = __DependencyContext.current
+    values._mode = mode
+    modify?(&values)
+    return try values._scope(operation)
 }
 
 @inlinable
@@ -72,19 +42,8 @@ nonisolated(nonsending)
         operation: nonisolated(nonsending) () async throws(E) -> T
     ) async throws(E) -> T
 {
-    try await Witness.Context._withScope(
-        mode: mode,
-        { witnessValues, l1Values in
-            if let modify {
-                var depValues = __DependencyValues(
-                    _witnessValues: witnessValues,
-                    _l1Values: l1Values
-                )
-                modify(&depValues)
-                witnessValues = depValues._witnessValues
-                l1Values = depValues._l1Values
-            }
-        },
-        operation: operation
-    )
+    var values = __DependencyContext.current
+    values._mode = mode
+    modify?(&values)
+    return try await values._scope(operation)
 }

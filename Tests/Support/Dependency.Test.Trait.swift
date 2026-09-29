@@ -21,25 +21,34 @@
             testCase: Testing.Test.Case?,
             performing function: @Sendable @concurrent () async throws -> Void
         ) async throws {
-            try await Witness.Context._withScope(
-                mode: .test,
-                { witnessValues, l1Values in
-                    if Self.isRoot {
-                        witnessValues = Witness.Values()
+            let isRoot = Self.isRoot
+            try await __DependencyContext.$root.withValue(
+                isRoot ? __DependencyContext.Root() : __DependencyContext.root
+            ) {
+                try await Witness.Context._withScope(
+                    mode: .test,
+                    { witnessValues, l1Values in
+                        if isRoot {
+                            witnessValues = Witness.Values()
 
-                        l1Values = Dependency.Dependency.Values.forTesting()
+                            l1Values = Dependency.Dependency.Values.forTesting()
+                        }
+                        var depValues = __DependencyValues(
+                            _witnessValues: witnessValues,
+                            _l1Values: l1Values,
+                            _mode: .test
+                        )
+                        updateValues(&depValues)
+                        witnessValues = depValues._witnessValues
+                        l1Values = depValues._l1Values
+                    },
+                    operation: {
+                        try await Self.$isRoot.withValue(false) {
+                            try await function()
+                        }
                     }
-                    var depValues = __DependencyValues(_witnessValues: witnessValues, _l1Values: l1Values)
-                    updateValues(&depValues)
-                    witnessValues = depValues._witnessValues
-                    l1Values = depValues._l1Values
-                },
-                operation: {
-                    try await Self.$isRoot.withValue(false) {
-                        try await function()
-                    }
-                }
-            )
+                )
+            }
         }
     }
 
