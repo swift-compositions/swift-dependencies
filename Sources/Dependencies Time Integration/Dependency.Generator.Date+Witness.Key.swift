@@ -1,3 +1,4 @@
+#if Time
 public import Dependencies
 public import Time
 public import Witnesses
@@ -32,3 +33,4 @@ extension __DependencyGenerator.Date: Witness.Key {
         )
     }
 }
+#endif

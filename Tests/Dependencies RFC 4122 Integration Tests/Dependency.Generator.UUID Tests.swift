@@ -1,3 +1,4 @@
+#if RFC4122
 import Dependencies_RFC_4122_Integration
 import Dependencies_Test_Support
 import Testing
@@ -87,3 +88,4 @@ struct `Dependency.Generator.UUID Tests` {
         })
     }
 }
+#endif

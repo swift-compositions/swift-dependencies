@@ -1,3 +1,4 @@
+#if Time
 public import Dependencies
 public import Time
 
@@ -30,3 +31,4 @@ extension __DependencyGenerator.Date {
         Self { instant }
     }
 }
+#endif

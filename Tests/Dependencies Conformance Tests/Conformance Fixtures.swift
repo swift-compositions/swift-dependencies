@@ -15,6 +15,7 @@ extension Dependency.Values {
 }
 
 enum LiveOnlyKey: Dependency.Key {
+    typealias Value = String
     static var liveValue: String { "only live" }
 }
 
@@ -49,6 +50,7 @@ extension Dependency.Values {
 }
 
 enum NumberKey: Dependency.Key {
+    typealias Value = Int
     static var liveValue: Int { 0 }
 }
 

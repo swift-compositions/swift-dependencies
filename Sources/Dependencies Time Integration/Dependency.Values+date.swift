@@ -1,3 +1,4 @@
+#if Time
 public import Dependencies
 
 extension __DependencyValues {
@@ -7,3 +8,4 @@ extension __DependencyValues {
         set { self[__DependencyGenerator.Date.self] = newValue }
     }
 }
+#endif

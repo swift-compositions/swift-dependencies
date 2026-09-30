@@ -1,3 +1,4 @@
+#if RFC4122
 internal import Dependencies
 internal import Synchronization
 
@@ -12,3 +13,4 @@ extension __DependencyGenerator.UUID {
         }
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if RFC4122
 public import Dependencies
 public import RFC_4122
 
@@ -48,3 +49,4 @@ extension __DependencyGenerator.UUID {
         )
     }
 }
+#endif

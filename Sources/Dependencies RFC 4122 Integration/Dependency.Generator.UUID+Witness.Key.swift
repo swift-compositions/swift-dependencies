@@ -1,3 +1,4 @@
+#if RFC4122
 public import Dependencies
 public import RFC_4122
 public import Witnesses
@@ -21,3 +22,4 @@ extension __DependencyGenerator.UUID: Witness.Key {
 
     private static let shared = Self.incrementing
 }
+#endif

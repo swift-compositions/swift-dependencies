@@ -29,7 +29,12 @@ let package = Package(
             targets: ["Dependencies Test Support"]
         ),
     ],
+    traits: [
+        .trait(name: "RFC4122", description: "RFC 4122 UUID integration"),
+        .trait(name: "Time", description: "Time integration"),
+    ],
     dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-ascii.git", branch: "main", traits: ["Coder", "Parser", "Serializer"]),
         .package(url: "https://github.com/swift-compositions/swift-witnesses.git", branch: "main"),
         .package(url: "https://github.com/swift-compositions/swift-environment.git", branch: "main"),
         .package(url: "https://github.com/swift-ietf/swift-rfc-4122.git", branch: "main"),
@@ -49,7 +54,7 @@ let package = Package(
             dependencies: [
                 "Dependencies",
                 .product(name: "Witnesses", package: "swift-witnesses"),
-                .product(name: "RFC 4122", package: "swift-rfc-4122"),
+                .product(name: "RFC 4122", package: "swift-rfc-4122", condition: .when(traits: ["RFC4122"])),
             ],
             path: "Sources/Dependencies RFC 4122 Integration"
         ),
@@ -58,7 +63,7 @@ let package = Package(
             dependencies: [
                 "Dependencies",
                 .product(name: "Witnesses", package: "swift-witnesses"),
-                .product(name: "Time", package: "swift-time"),
+                .product(name: "Time", package: "swift-time", condition: .when(traits: ["Time"])),
             ],
             path: "Sources/Dependencies Time Integration"
         ),

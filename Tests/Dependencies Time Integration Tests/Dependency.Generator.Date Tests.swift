@@ -1,3 +1,4 @@
+#if Time
 import Dependencies_Test_Support
 import Dependencies_Time_Integration
 import Testing
@@ -66,3 +67,4 @@ struct `Dependency.Generator.Date Tests` {
         })
     }
 }
+#endif

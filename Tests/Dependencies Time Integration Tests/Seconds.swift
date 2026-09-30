@@ -1,3 +1,4 @@
+#if Time
 import Synchronization
 
 final class Seconds: Sendable {
@@ -7,3 +8,4 @@ final class Seconds: Sendable {
         value.wrappingAdd(1, ordering: .relaxed).newValue
     }
 }
+#endif
