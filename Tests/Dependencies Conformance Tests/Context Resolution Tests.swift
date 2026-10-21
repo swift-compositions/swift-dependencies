@@ -14,48 +14,66 @@ struct `Context Resolution Tests` {
         mode: Dependency<Never>.Context.Mode,
         expected: String
     ) {
-        withDependencies(mode: mode, operation: {
-            @Dependency(\.greeting) var greeting
-            #expect(greeting == expected)
-        })
+        withDependencies(
+            mode: mode,
+            operation: {
+                @Dependency(\.greeting) var greeting
+                #expect(greeting == expected)
+            }
+        )
     }
 
     @Test
     func `A live only key serves its live value in every context`() {
         for mode in [Dependency<Never>.Context.Mode.live, .test, .preview] {
-            withDependencies(mode: mode, operation: {
-                @Dependency(\.liveOnly) var liveOnly
-                #expect(liveOnly == "only live")
-            })
+            withDependencies(
+                mode: mode,
+                operation: {
+                    @Dependency(\.liveOnly) var liveOnly
+                    #expect(liveOnly == "only live")
+                }
+            )
         }
     }
 
     @Test
     func `A test value defaults to the preview value`() {
-        withDependencies(mode: .test, operation: {
-            @Dependency(\.liveAndPreview) var value
-            #expect(value == "preview half")
-        })
-        withDependencies(mode: .live, operation: {
-            @Dependency(\.liveAndPreview) var value
-            #expect(value == "live half")
-        })
+        withDependencies(
+            mode: .test,
+            operation: {
+                @Dependency(\.liveAndPreview) var value
+                #expect(value == "preview half")
+            }
+        )
+        withDependencies(
+            mode: .live,
+            operation: {
+                @Dependency(\.liveAndPreview) var value
+                #expect(value == "live half")
+            }
+        )
     }
 
     @Test
     func `A test only key serves its test value in previews`() {
-        withDependencies(mode: .preview, operation: {
-            @Dependency(\.testOnly) var testOnly
-            #expect(testOnly == "only test")
-        })
+        withDependencies(
+            mode: .preview,
+            operation: {
+                @Dependency(\.testOnly) var testOnly
+                #expect(testOnly == "only test")
+            }
+        )
     }
 
     @Test(arguments: [Dependency<Never>.Context.Mode.live, .test, .preview])
     func `The context is readable as a dependency value`(mode: Dependency<Never>.Context.Mode) {
-        withDependencies(mode: mode, operation: {
-            @Dependency(\.context) var context
-            #expect(context == mode)
-        })
+        withDependencies(
+            mode: mode,
+            operation: {
+                @Dependency(\.context) var context
+                #expect(context == mode)
+            }
+        )
     }
 
     @Test

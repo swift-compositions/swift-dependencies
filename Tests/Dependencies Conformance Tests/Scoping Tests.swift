@@ -118,12 +118,15 @@ struct `Scoping Tests` {
         withDependencies {
             $0.greeting = "explicit"
         } operation: {
-            withDependencies(mode: .preview, operation: {
-                @Dependency(\.greeting) var greeting
-                @Dependency(\.context) var context
-                #expect(greeting == "explicit")
-                #expect(context == .preview)
-            })
+            withDependencies(
+                mode: .preview,
+                operation: {
+                    @Dependency(\.greeting) var greeting
+                    @Dependency(\.context) var context
+                    #expect(greeting == "explicit")
+                    #expect(context == .preview)
+                }
+            )
         }
     }
 }

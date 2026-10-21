@@ -1,5 +1,5 @@
-public import Witnesses
 internal import Synchronization
+public import Witnesses
 
 extension __DependencyContext {
 

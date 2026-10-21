@@ -37,11 +37,14 @@ struct `Task Propagation Tests` {
 
     @Test
     func `An unstructured task inherits the context`() async {
-        let context = await withDependencies(mode: .preview, operation: {
-            await Task {
-                Dependency<Never>.Context.current.context
-            }.value
-        })
+        let context = await withDependencies(
+            mode: .preview,
+            operation: {
+                await Task {
+                    Dependency<Never>.Context.current.context
+                }.value
+            }
+        )
         #expect(context == .preview)
     }
 

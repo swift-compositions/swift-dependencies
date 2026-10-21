@@ -1,11 +1,11 @@
 #if Time
-public import Dependencies
+    public import Dependencies
 
-extension __DependencyValues {
+    extension __DependencyValues {
 
-    public var date: __DependencyGenerator.Date {
-        get { self[__DependencyGenerator.Date.self] }
-        set { self[__DependencyGenerator.Date.self] = newValue }
+        public var date: __DependencyGenerator.Date {
+            get { self[__DependencyGenerator.Date.self] }
+            set { self[__DependencyGenerator.Date.self] = newValue }
+        }
     }
-}
 #endif

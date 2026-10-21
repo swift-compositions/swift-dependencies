@@ -1,6 +1,6 @@
 import Dependency
-internal import Synchronization
 internal import Environment
+internal import Synchronization
 public import Witnesses
 
 public enum __DependencyContext: Sendable {}

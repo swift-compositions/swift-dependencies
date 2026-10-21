@@ -54,9 +54,12 @@ struct `Escaping Tests` {
 
     @Test
     func `A continuation restores the captured context`() {
-        let continuation = withDependencies(mode: .preview, operation: {
-            withEscapedDependencies { $0 }
-        })
+        let continuation = withDependencies(
+            mode: .preview,
+            operation: {
+                withEscapedDependencies { $0 }
+            }
+        )
         let context = continuation.yield {
             Dependency<Never>.Context.current.context
         }

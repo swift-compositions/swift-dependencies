@@ -1,6 +1,6 @@
-public import Witnesses
 internal import Dependency
 internal import Synchronization
+public import Witnesses
 
 nonisolated(nonsending)
     public func prepareDependencies<T, E: Swift.Error>(
