@@ -74,7 +74,7 @@ struct `Context Resolution Tests` {
     func `Reads in the update closure follow a context set earlier in it`() {
         withDependencies {
             $0.context = .test
-            $0.greeting = $0.greeting + "!"
+            $0.greeting += "!"
         } operation: {
             @Dependency(\.greeting) var greeting
             #expect(greeting == "test greeting!")
