@@ -89,3 +89,17 @@ extension __DependencyValues {
         )
     }
 }
+
+extension __DependencyValues {
+
+    /// These values with `other`'s laid over them: a dependency set in both takes `other`'s value, and the mode is
+    /// `other`'s when it names one.
+    @inlinable
+    public func merging(_ other: Self) -> Self {
+        __DependencyValues(
+            _witnessValues: _witnessValues.merging(other._witnessValues),
+            _l1Values: _l1Values.merging(other._l1Values),
+            _mode: other._mode ?? _mode
+        )
+    }
+}

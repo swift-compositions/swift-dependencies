@@ -5,6 +5,11 @@ public struct Dependency<Value: Sendable>: Sendable {
     @usableFromInline
     internal let accessor: _Accessor<Value>
 
+    /// The values in scope where this dependency was created. A read lays the values in scope there over them, so
+    /// an object built inside `withDependencies` keeps its overrides when it is used after the scope has ended.
+    @usableFromInline
+    internal let initial: __DependencyValues
+
     @usableFromInline
     internal let fileID: StaticString
 
@@ -18,6 +23,7 @@ public struct Dependency<Value: Sendable>: Sendable {
         line: UInt = #line
     ) {
         self.accessor = .keyPath(keyPath)
+        self.initial = __DependencyContext.current
         self.fileID = fileID
         self.line = line
     }
@@ -29,13 +35,14 @@ public struct Dependency<Value: Sendable>: Sendable {
         line: UInt = #line
     ) where Key.Value == Value {
         self.accessor = .closure { $0[Key.self] }
+        self.initial = __DependencyContext.current
         self.fileID = fileID
         self.line = line
     }
 
     @inlinable
     public var wrappedValue: Value {
-        accessor.getValue(from: __DependencyContext.current)
+        accessor.getValue(from: initial.merging(__DependencyContext.current))
     }
 }
 

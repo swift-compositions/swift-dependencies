@@ -122,3 +122,26 @@ extension `Dependency Tests`.Test.Integration {
         }
     }
 }
+
+extension `Dependency Tests`.Test.`Edge Case` {
+    struct L1Consumer: Sendable {
+        @Dependency(\.l1Only) var value
+    }
+
+    @Test
+    func `A dependency on an L1 key keeps the value in scope where it was created`() {
+        let consumer = withDependencies {
+            $0[L1OnlyKey.self] = "created"
+        } operation: {
+            L1Consumer()
+        }
+        #expect(consumer.value == "created")
+    }
+}
+
+extension __DependencyValues {
+    fileprivate var l1Only: String {
+        get { self[L1OnlyKey.self] }
+        set { self[L1OnlyKey.self] = newValue }
+    }
+}
