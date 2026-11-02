@@ -1,11 +1,12 @@
+internal import Clock_Concurrency
 public import Witnesses
 
 extension __DependencyValues {
 
     internal enum ContinuousClockKey: Witness.Key {
 
-        typealias Value = any Clock<Duration>
+        typealias Value = any Clock.Nonsending<Duration>
 
-        static var liveValue: any Clock<Duration> { ContinuousClock() }
+        static var liveValue: any Clock.Nonsending<Duration> { ContinuousClock() }
     }
 }

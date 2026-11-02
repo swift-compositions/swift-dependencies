@@ -1,3 +1,4 @@
+import Clock_Concurrency
 import Dependencies
 import Synchronization
 
@@ -77,7 +78,7 @@ final class Recorder<Element: Sendable>: Sendable {
     }
 }
 
-struct RecordingClock: Clock {
+struct RecordingClock: Clock.Nonsending {
     struct Instant: InstantProtocol {
         var offset: Duration
 

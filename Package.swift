@@ -35,6 +35,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/swift-atoms/swift-ascii.git", branch: "main", traits: ["Coder", "Parser", "Serializer"]),
+        .package(url: "https://github.com/swift-atoms/swift-clock.git", branch: "main"),
         .package(url: "https://github.com/swift-compositions/swift-witnesses.git", branch: "main"),
         .package(url: "https://github.com/swift-compositions/swift-environment.git", branch: "main"),
         .package(url: "https://github.com/swift-ietf/swift-rfc-4122.git", branch: "main"),
@@ -44,6 +45,7 @@ let package = Package(
         .target(
             name: "Dependencies",
             dependencies: [
+                .product(name: "Clock Concurrency", package: "swift-clock"),
                 .product(name: "Witnesses", package: "swift-witnesses"),
                 .product(name: "Environment", package: "swift-environment"),
             ],
@@ -88,6 +90,7 @@ let package = Package(
             name: "Dependencies Conformance Tests",
             dependencies: [
                 "Dependencies",
+                .product(name: "Clock Concurrency", package: "swift-clock"),
                 "Dependencies Test Support",
                 .product(name: "Witnesses", package: "swift-witnesses"),
             ],
