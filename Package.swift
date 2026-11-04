@@ -29,6 +29,10 @@ let package = Package(
             targets: ["Dependencies Foundation Integration"]
         ),
         .library(
+            name: "Dependencies Environment Integration",
+            targets: ["Dependencies Environment Integration"]
+        ),
+        .library(
             name: "Dependencies Test Support",
             targets: ["Dependencies Test Support"]
         ),
@@ -84,6 +88,14 @@ let package = Package(
             path: "Sources/Dependencies Foundation Integration"
         ),
         .target(
+            name: "Dependencies Environment Integration",
+            dependencies: [
+                "Dependencies",
+                .product(name: "Environment", package: "swift-environment"),
+            ],
+            path: "Sources/Dependencies Environment Integration"
+        ),
+        .target(
             name: "Dependencies Test Support",
             dependencies: [
                 "Dependencies",
@@ -134,6 +146,14 @@ let package = Package(
                 .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions"),
             ],
             path: "Tests/Dependencies Foundation Integration Tests"
+        ),
+        .testTarget(
+            name: "Dependencies Environment Integration Tests",
+            dependencies: [
+                "Dependencies Environment Integration",
+                "Dependencies Test Support",
+            ],
+            path: "Tests/Dependencies Environment Integration Tests"
         ),
     ],
     swiftLanguageModes: [.v6]
