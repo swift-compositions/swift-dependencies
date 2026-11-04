@@ -5,6 +5,8 @@ extension Calendar {
 
     public enum Key: Dependency.Key {
 
+        public typealias Value = Calendar
+
         public static var liveValue: Calendar { .autoupdatingCurrent }
     }
 }
