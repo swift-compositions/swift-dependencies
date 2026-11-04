@@ -25,6 +25,10 @@ let package = Package(
             targets: ["Dependencies Time Integration"]
         ),
         .library(
+            name: "Dependencies Foundation Integration",
+            targets: ["Dependencies Foundation Integration"]
+        ),
+        .library(
             name: "Dependencies Test Support",
             targets: ["Dependencies Test Support"]
         ),
@@ -40,6 +44,8 @@ let package = Package(
         .package(url: "https://github.com/swift-compositions/swift-environment.git", branch: "main"),
         .package(url: "https://github.com/swift-ietf/swift-rfc-4122.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-time.git", branch: "main"),
+        .package(url: "https://github.com/swift-molecules/swift-foundation-extensions.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-standard-library-extensions.git", branch: "main"),
     ],
     targets: [
         .target(
@@ -68,6 +74,14 @@ let package = Package(
                 .product(name: "Time", package: "swift-time", condition: .when(traits: ["Time"])),
             ],
             path: "Sources/Dependencies Time Integration"
+        ),
+        .target(
+            name: "Dependencies Foundation Integration",
+            dependencies: [
+                "Dependencies",
+                .product(name: "FoundationEssentials Extensions", package: "swift-foundation-extensions"),
+            ],
+            path: "Sources/Dependencies Foundation Integration"
         ),
         .target(
             name: "Dependencies Test Support",
@@ -111,6 +125,15 @@ let package = Package(
                 "Dependencies Test Support",
             ],
             path: "Tests/Dependencies Time Integration Tests"
+        ),
+        .testTarget(
+            name: "Dependencies Foundation Integration Tests",
+            dependencies: [
+                "Dependencies Foundation Integration",
+                "Dependencies Test Support",
+                .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions"),
+            ],
+            path: "Tests/Dependencies Foundation Integration Tests"
         ),
     ],
     swiftLanguageModes: [.v6]
