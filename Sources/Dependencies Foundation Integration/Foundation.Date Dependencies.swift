@@ -1,6 +1,6 @@
-import Dependencies
-import Foundation
-import FoundationEssentials_Extensions
+public import Dependencies
+public import Foundation
+public import FoundationEssentials_Extensions
 
 extension Date {
 

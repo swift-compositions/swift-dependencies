@@ -1,8 +1,7 @@
-import Dependencies_Test_Support
-import Testing
-
 import Clock_Concurrency
 import Dependencies
+import Dependencies_Test_Support
+import Testing
 
 @Suite
 struct `Dependency.Values Clock Tests` {

@@ -1,5 +1,5 @@
-import Dependencies
-import Foundation
+public import Dependencies
+public import Foundation
 
 extension Calendar {
 

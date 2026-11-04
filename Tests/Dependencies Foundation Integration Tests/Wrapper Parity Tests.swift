@@ -1,6 +1,6 @@
 import Dependencies
-import Dependencies_Test_Support
 import Dependencies_Foundation_Integration
+import Dependencies_Test_Support
 import Testing
 
 @Suite(.dependency(\.calendar, Calendar(identifier: .gregorian)))
