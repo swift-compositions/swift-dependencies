@@ -1,5 +1,6 @@
 import Dependencies_Environment_Integration
 import Dependencies_Test_Support
+import Foundation
 import Testing
 
 extension EnvVars {

@@ -1,6 +1,7 @@
 import Dependencies
 import Dependencies_Foundation_Integration
 import Dependencies_Test_Support
+import Foundation
 import Testing
 
 extension Date {
