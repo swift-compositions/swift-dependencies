@@ -1,108 +1,21 @@
 # swift-dependencies
 
-![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+Use this package when your code reaches collaborators such as API clients, clocks, UUIDs or the current date from anywhere, without passing them through initializers, and you want to swap them in tests and previews. Declare a dependency with `Dependency.Key`, read it with the `Dependency` property wrapper, and override it for an operation with `withDependencies(_:operation:)`. In Swift Testing, run suites under the `.dependencies` trait from `Dependencies Test Support`. If you only need keyed values with live and test defaults and scoped overrides, and no property wrapper, preview context or strict keys, use swift-dependency. To declare a dependency as a struct of closures with a generated test double, use swift-witnesses.
 
-Type-safe dependency injection for Swift: the `@Dependency` property wrapper resolves values through a live, preview, and test chain, with scoped overrides supplied by `withDependencies`.
+## Laws
 
----
-
-## Key Features
-
-- **`@Dependency` property wrapper** — Reaches a dependency by KeyPath or key type, with no constructor threading through the call graph.
-- **Live, preview, and test resolution** — Each `Dependency.Key` resolves through `testValue → previewValue → liveValue`, selected by the current `Dependency.Context` mode.
-- **Scoped overrides** — `withDependencies` replaces values for the duration of a synchronous or asynchronous operation; nested scopes inherit and override outer values.
-- **Typed throws preserved** — Operations carry their concrete error type through the scope (`throws(E)`), so the API surface introduces no `any Error`.
-- **Strict keys** — `Dependency.Key.Strict` makes a dependency fail fast in tests unless an explicit override is supplied.
-- **Escaping-closure capture** — `Dependency.Continuation` carries the active context into timers, callbacks, and other escaping closures.
-- **Task-local storage** — Resolution is backed by task-local state rather than global mutable state.
-
----
-
-## Quick Start
-
-Declare a dependency with a live value and a deterministic test value, register it for KeyPath access, and reach it from feature code through `@Dependency`. The feature type takes no initializer parameter for the collaborator:
-
-```swift
-import Dependencies
-
-struct RandomNumbers: Sendable {
-    var next: @Sendable () -> Int
-}
-
-extension RandomNumbers: Dependency.Key {
-    static var liveValue: RandomNumbers { RandomNumbers { Int.random(in: 1...100) } }
-    static var testValue: RandomNumbers { RandomNumbers { 42 } }  // deterministic
-}
-
-extension Dependency.Values {
-    var randomNumbers: RandomNumbers {
-        get { self[RandomNumbers.self] }
-        set { self[RandomNumbers.self] = newValue }
-    }
-}
-
-struct DiceGame {
-    @Dependency(\.randomNumbers) var randomNumbers
-
-    func roll() -> Int { randomNumbers.next() }
-}
-```
-
-In a test, pin the dependency to a fixed value for one scope — `DiceGame` is never modified or re-initialized to accept the substitute:
-
-```swift
-let outcome = withDependencies {
-    $0.randomNumbers = RandomNumbers { 6 }
-} operation: {
-    DiceGame().roll()
-}
-// outcome == 6
-```
-
----
-
-## Installation
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/swift-compositions/swift-dependencies.git", branch: "main")
-]
-```
-
-```swift
-.target(
-    name: "YourTarget",
-    dependencies: [
-        .product(name: "Dependencies", package: "swift-dependencies")
-    ]
-)
-```
-
-Requires Swift 6.3.1 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26.
-
----
-
-## Architecture
-
-Two library products. Module import names replace spaces with underscores (`import Dependencies`, `import Dependencies_Test_Support`).
-
-| Product | When to import |
-|---------|----------------|
-| `Dependencies` | App and library code: the `@Dependency` wrapper, `withDependencies`, `prepareDependencies`, and the `Dependency.Key` / `Dependency.Values` / `Dependency.Context` surface. |
-| `Dependencies Test Support` | Test targets: re-exports `Dependencies` and adds Swift Testing traits (`.dependencies`, `.dependency(_:_:)`) for per-test and per-suite dependency isolation. |
-
-A ready-made `\.clock` dependency (a real clock when live, an immediate clock
-in tests and previews) lives in
-[swift-clocks-dependencies](https://github.com/swift-compositions/swift-clocks-dependencies).
-
----
-
-## Community
-
-<!-- BEGIN: discussion -->
-*Discussion thread will be created at first public release.*
-<!-- END: discussion -->
-
-## License
-
-Apache 2.0. See [LICENSE](LICENSE.md).
+- An explicitly set value wins in every context. Otherwise the test context reads `testValue`, which defaults to `previewValue`, which defaults to `liveValue`.
+- Outside any scope, and in a detached task, the context is live. The `.dependencies` trait enters the test context and gives each test fresh values, including a fresh prepared root.
+- Setting `Dependency.Values.context` in an update closure selects that context, and later reads in the same closure already follow it. A scope that changes the context keeps the explicit overrides of the enclosing scope.
+- The update closure of `withDependencies(_:operation:)` starts from the enclosing values. A nested scope keeps the outer overrides of other keys, and the outer values come back when the operation returns or throws. If the update closure throws, the operation doesn't run.
+- A `Dependency` remembers the values in scope where it was created, so an object built inside `withDependencies(_:operation:)` keeps its overrides when used later, even from a detached task. A scope around the read still wins for the keys it sets.
+- A `Task` created in a scope keeps that scope, even if it runs after the scope has ended. Task group children and `async let` children inherit the scope. A detached task doesn't.
+- `withEscapedDependencies(_:)` captures the current values and context. Yielding to the continuation replaces the values at the yield site entirely: keys the captured scope didn't set read their defaults, not the yield site's overrides. An `AsyncStream` closure runs in the consumer's scope unless it yields through such a continuation.
+- `prepareDependencies(_:)` sets values on the root. Every later read, scope and child task sees them. Successive preparations add up, and for a key set twice the latest value wins. A scope override still wins over a prepared value.
+- Reading a `Dependency.Key.Strict` in the test context without an override stops the program with a message saying to override it.
+- `Dependency.Values.clock` is an immediate clock in the test and preview contexts, so sleeps return at once. `Dependency.Values.continuousClock` is the real continuous clock in every context until you override it.
+- With the `RFC4122` trait, `Dependency.Values.uuid` makes random version 4 UUIDs when live. In tests it counts up: the first eight bytes are zero and the last eight hold the count. The default test generator is shared by the whole test process, so its count carries over between tests. Each `Dependency.Generator.UUID.incrementing` override starts again from zero and is shared by the child tasks in its scope.
+- With the `Time` trait, `Dependency.Values.date` reads the system clock on every access when live. In tests it is fixed at 1234567890 seconds after the Unix epoch.
+- The date helpers in `Dependencies Foundation Integration` read `Dependency.Values.calendar`, which is the user's autoupdating calendar in every context, tests included. Adding or subtracting date components with `+` or `-` stops the program if the calendar produces no date.
+- `EnvVars.live()` reads the process environment. A dotenv file given to `EnvVars.live(localEnvFile:)` or `EnvVars.live(environmentConfiguration:)` overrides process values key by key. A missing or unparseable file is ignored. With a project root and an environment name, `.env.<name>` is used when it exists, and `.env` otherwise.
+- `EnvVars.emergencyMode` is true only for the value `1`. `EnvVars.httpsRedirect` is true only for `true`, false for anything else, and nil when unset. `EnvVars.allowedInsecureHosts` splits on commas and trims whitespace, so an empty value gives one empty host.
