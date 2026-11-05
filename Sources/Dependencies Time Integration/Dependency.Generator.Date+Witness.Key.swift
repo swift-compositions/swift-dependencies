@@ -1,6 +1,6 @@
 #if Time
     public import Dependencies
-    public import Time
+    import Time
     public import Witnesses
 
     #if canImport(Darwin)

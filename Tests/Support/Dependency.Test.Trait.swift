@@ -1,8 +1,8 @@
 #if canImport(Testing) && compiler(>=6)
     public import Testing
     public import Dependencies
-    public import Dependency
-    public import Witnesses
+    import Dependency
+    import Witnesses
 
     @_documentation(visibility: private)
     public struct __DependencyTestTrait: TestScoping, TestTrait, SuiteTrait {

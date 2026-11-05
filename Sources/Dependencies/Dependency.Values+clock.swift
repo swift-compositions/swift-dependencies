@@ -1,5 +1,5 @@
 public import Clock_Concurrency
-public import Witnesses
+import Witnesses
 
 extension __DependencyValues {
 
