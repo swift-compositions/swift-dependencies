@@ -2,7 +2,9 @@ import Testing
 
 @testable import Dependencies
 
-extension __DependencyValues {
+enum `__DependencyValues Tests` {}
+
+extension `__DependencyValues Tests` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -10,7 +12,7 @@ extension __DependencyValues {
     }
 }
 
-extension __DependencyValues.Test.Unit {
+extension `__DependencyValues Tests`.Test.Unit {
     @Test
     func `Subscript get uses context`() async throws {
         try await withDependencies(mode: .test) { _ in
@@ -40,7 +42,7 @@ extension __DependencyValues.Test.Unit {
     }
 }
 
-extension __DependencyValues.Test.`Edge Case` {
+extension `__DependencyValues Tests`.Test.`Edge Case` {
     @Test
     func `KeyPath-based access works`() throws {
         try withDependencies {
@@ -71,7 +73,7 @@ extension __DependencyValues.Test.`Edge Case` {
     }
 }
 
-extension __DependencyValues.Test.Integration {
+extension `__DependencyValues Tests`.Test.Integration {
     @Test
     func `Values wrapper correctly delegates to Witness.Values`() throws {
 

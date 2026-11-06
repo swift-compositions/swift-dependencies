@@ -3,7 +3,9 @@ import Dependencies_Test_Support
 import Foundation
 import Testing
 
-extension EnvVars {
+enum `EnvVars Tests` {}
+
+extension `EnvVars Tests` {
     @Suite
     struct Test {
         @Suite struct Unit {}
@@ -12,7 +14,7 @@ extension EnvVars {
     }
 }
 
-extension EnvVars.Test.Unit {
+extension `EnvVars Tests`.Test.Unit {
     @Test
     func `dictionary storage and scalar accessors`() throws {
         var envVars = try EnvVars(
@@ -64,7 +66,7 @@ extension EnvVars.Test.Unit {
     }
 }
 
-extension EnvVars.Test.`Edge Case` {
+extension `EnvVars Tests`.Test.`Edge Case` {
     @Test
     func `missing required key throws`() {
         #expect(throws: EnvVarsError.self) {
@@ -95,7 +97,7 @@ extension EnvVars.Test.`Edge Case` {
     }
 }
 
-extension EnvVars.Test.Integration {
+extension `EnvVars Tests`.Test.Integration {
     @Test
     func `process-only live construction and dependency key compile`() throws {
         let live = try EnvVars.live()
@@ -109,7 +111,7 @@ extension EnvVars.Test.Integration {
     }
 }
 
-extension EnvVars.Test.Unit {
+extension `EnvVars Tests`.Test.Unit {
     @Test
     func `URL accessors round trip`() throws {
         var envVars = EnvVars(["BASE_URL": "https://example.com"])
@@ -131,7 +133,7 @@ extension EnvVars.Test.Unit {
     }
 }
 
-extension EnvVars.Test.`Edge Case` {
+extension `EnvVars Tests`.Test.`Edge Case` {
     @Test
     func `invalid URL throws`() {
         let envVars = EnvVars(["BASE_URL": "http://[::1"])
@@ -156,7 +158,7 @@ extension EnvVars.Test.`Edge Case` {
     }
 }
 
-extension EnvVars.Test.Integration {
+extension `EnvVars Tests`.Test.Integration {
     @Test
     func `dotenv URL overlay wins over process environment`() throws {
         let file = try URLs.envExample()

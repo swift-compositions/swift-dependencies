@@ -4,7 +4,9 @@ import Dependencies_Test_Support
 import Foundation
 import Testing
 
-extension DateComponents {
+enum `DateComponents Tests` {}
+
+extension `DateComponents Tests` {
     @Suite(.dependency(\.calendar, Calendar.current))
     struct Test {
         @Suite struct Unit {}
@@ -12,7 +14,7 @@ extension DateComponents {
     }
 }
 
-extension DateComponents.Test.Unit {
+extension `DateComponents Tests`.Test.Unit {
 
     @Test
     func `isValid(for:) accepts an existing calendar date`() {
@@ -27,7 +29,7 @@ extension DateComponents.Test.Unit {
     }
 }
 
-extension DateComponents.Test.`Edge Case` {
+extension `DateComponents Tests`.Test.`Edge Case` {
 
     @Test
     func `isValid(for:) rejects February 29 in a non-leap year`() {

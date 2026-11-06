@@ -2,7 +2,7 @@ import Testing
 
 @testable import Dependencies
 
-extension __DependencyContext.Test {
+extension `__DependencyContext Tests`.Test {
     @Suite("Dependency.Continuation") struct Continuation {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -10,7 +10,7 @@ extension __DependencyContext.Test {
     }
 }
 
-extension __DependencyContext.Test.Continuation.Unit {
+extension `__DependencyContext Tests`.Test.Continuation.Unit {
     @Test
     func `Continuation is typealias for Witness.Context.Escaped`() {
 
@@ -29,7 +29,7 @@ extension __DependencyContext.Test.Continuation.Unit {
     }
 }
 
-extension __DependencyContext.Test.Continuation.`Edge Case` {
+extension `__DependencyContext Tests`.Test.Continuation.`Edge Case` {
     @Test
     func `Continuation captures current dependencies`() {
         var capturedValue: String?
@@ -104,7 +104,7 @@ extension __DependencyContext.Test.Continuation.`Edge Case` {
     }
 }
 
-extension __DependencyContext.Test.Continuation.Integration {
+extension `__DependencyContext Tests`.Test.Continuation.Integration {
     @Test
     func `Continuation with async work`() async {
         var savedContinuation: Dependency<Never>.Continuation?

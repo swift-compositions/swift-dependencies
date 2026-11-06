@@ -2,7 +2,7 @@ import Testing
 
 @testable import Dependencies
 
-extension __DependencyValues.Test {
+extension `__DependencyValues Tests`.Test {
     @Suite("Dependency.Values.Comprehensive") struct Comprehensive {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -10,7 +10,7 @@ extension __DependencyValues.Test {
     }
 }
 
-extension __DependencyValues.Test.Comprehensive.Unit {
+extension `__DependencyValues Tests`.Test.Comprehensive.Unit {
     @Test
     func `Values container stores and retrieves values`() {
         withDependencies {
@@ -63,7 +63,7 @@ extension __DependencyValues.Test.Comprehensive.Unit {
     }
 }
 
-extension __DependencyValues.Test.Comprehensive.`Edge Case` {
+extension `__DependencyValues Tests`.Test.Comprehensive.`Edge Case` {
     @Test
     func `Empty modification preserves existing values`() {
         withDependencies {
@@ -177,7 +177,7 @@ extension __DependencyValues.Test.Comprehensive.`Edge Case` {
     }
 }
 
-extension __DependencyValues.Test.Comprehensive.Integration {
+extension `__DependencyValues Tests`.Test.Comprehensive.Integration {
     @Test
     func `withDependencies returns operation result`() {
         let result = withDependencies {

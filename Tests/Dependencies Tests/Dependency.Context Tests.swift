@@ -2,7 +2,9 @@ import Testing
 
 @testable import Dependencies
 
-extension __DependencyContext {
+enum `__DependencyContext Tests` {}
+
+extension `__DependencyContext Tests` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -10,7 +12,7 @@ extension __DependencyContext {
     }
 }
 
-extension __DependencyContext.Test.Unit {
+extension `__DependencyContext Tests`.Test.Unit {
     @Test
     func `Current returns default values outside scope`() async throws {
         let value = Dependency<Never>.Context.current[SimpleKey.self]
@@ -33,7 +35,7 @@ extension __DependencyContext.Test.Unit {
     }
 }
 
-extension __DependencyContext.Test.`Edge Case` {
+extension `__DependencyContext Tests`.Test.`Edge Case` {
     @Test
     func `Context tracks mode changes through withDependencies`() throws {
 
@@ -50,7 +52,7 @@ extension __DependencyContext.Test.`Edge Case` {
     }
 }
 
-extension __DependencyContext.Test.Integration {
+extension `__DependencyContext Tests`.Test.Integration {
     @Test
     func `Context delegates to Witness.Context`() async throws {
 

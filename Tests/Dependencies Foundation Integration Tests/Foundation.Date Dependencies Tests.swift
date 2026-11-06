@@ -4,7 +4,9 @@ import Dependencies_Test_Support
 import Foundation
 import Testing
 
-extension Date {
+enum `Date Tests` {}
+
+extension `Date Tests` {
     @Suite(.dependency(\.calendar, Calendar.current))
     struct Test {
         @Suite struct Unit {}
@@ -12,7 +14,7 @@ extension Date {
     }
 }
 
-extension Date.Test.Unit {
+extension `Date Tests`.Test.Unit {
 
     @Test
     func `next returns the next occurrence for a valid weekday`() throws {
@@ -31,7 +33,7 @@ extension Date.Test.Unit {
     }
 }
 
-extension Date.Test.`Edge Case` {
+extension `Date Tests`.Test.`Edge Case` {
 
     @Test
     func `next returns nil for weekday values outside 1 through 7`() throws {
