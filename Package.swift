@@ -64,7 +64,7 @@ let package = Package(
         .target(
             name: "Dependencies RFC 4122 Integration",
             dependencies: [
-                "Dependencies",
+                .target(name: "Dependencies"),
                 .product(name: "Witnesses", package: "swift-witnesses"),
                 .product(name: "RFC 4122", package: "swift-rfc-4122", condition: .when(traits: ["RFC4122"])),
             ],
@@ -73,7 +73,7 @@ let package = Package(
         .target(
             name: "Dependencies Time Integration",
             dependencies: [
-                "Dependencies",
+                .target(name: "Dependencies"),
                 .product(name: "Witnesses", package: "swift-witnesses"),
                 .product(name: "Time", package: "swift-time", condition: .when(traits: ["Time"])),
             ],
@@ -82,7 +82,7 @@ let package = Package(
         .target(
             name: "Dependencies Foundation Integration",
             dependencies: [
-                "Dependencies",
+                .target(name: "Dependencies"),
                 .product(name: "FoundationEssentials Extensions", package: "swift-foundation-extensions"),
             ],
             path: "Sources/Dependencies Foundation Integration"
@@ -90,7 +90,7 @@ let package = Package(
         .target(
             name: "Dependencies Environment Integration",
             dependencies: [
-                "Dependencies",
+                .target(name: "Dependencies"),
                 .product(name: "Environment", package: "swift-environment"),
             ],
             path: "Sources/Dependencies Environment Integration"
@@ -98,7 +98,7 @@ let package = Package(
         .target(
             name: "Dependencies Test Support",
             dependencies: [
-                "Dependencies",
+                .target(name: "Dependencies"),
                 .product(name: "Witnesses", package: "swift-witnesses"),
             ],
             path: "Tests/Support"
@@ -106,8 +106,8 @@ let package = Package(
         .testTarget(
             name: "Dependencies Tests",
             dependencies: [
-                "Dependencies",
-                "Dependencies Test Support",
+                .target(name: "Dependencies"),
+                .target(name: "Dependencies Test Support"),
                 .product(name: "Witnesses", package: "swift-witnesses"),
             ],
             path: "Tests/Dependencies Tests"
@@ -115,9 +115,9 @@ let package = Package(
         .testTarget(
             name: "Dependencies Conformance Tests",
             dependencies: [
-                "Dependencies",
+                .target(name: "Dependencies"),
                 .product(name: "Clock Concurrency", package: "swift-clock"),
-                "Dependencies Test Support",
+                .target(name: "Dependencies Test Support"),
                 .product(name: "Witnesses", package: "swift-witnesses"),
             ],
             path: "Tests/Dependencies Conformance Tests"
@@ -125,24 +125,24 @@ let package = Package(
         .testTarget(
             name: "Dependencies RFC 4122 Integration Tests",
             dependencies: [
-                "Dependencies RFC 4122 Integration",
-                "Dependencies Test Support",
+                .target(name: "Dependencies RFC 4122 Integration"),
+                .target(name: "Dependencies Test Support"),
             ],
             path: "Tests/Dependencies RFC 4122 Integration Tests"
         ),
         .testTarget(
             name: "Dependencies Time Integration Tests",
             dependencies: [
-                "Dependencies Time Integration",
-                "Dependencies Test Support",
+                .target(name: "Dependencies Time Integration"),
+                .target(name: "Dependencies Test Support"),
             ],
             path: "Tests/Dependencies Time Integration Tests"
         ),
         .testTarget(
             name: "Dependencies Foundation Integration Tests",
             dependencies: [
-                "Dependencies Foundation Integration",
-                "Dependencies Test Support",
+                .target(name: "Dependencies Foundation Integration"),
+                .target(name: "Dependencies Test Support"),
                 .product(name: "Standard Library Extensions", package: "swift-standard-library-extensions"),
             ],
             path: "Tests/Dependencies Foundation Integration Tests"
@@ -150,8 +150,8 @@ let package = Package(
         .testTarget(
             name: "Dependencies Environment Integration Tests",
             dependencies: [
-                "Dependencies Environment Integration",
-                "Dependencies Test Support",
+                .target(name: "Dependencies Environment Integration"),
+                .target(name: "Dependencies Test Support"),
             ],
             path: "Tests/Dependencies Environment Integration Tests"
         ),
