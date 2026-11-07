@@ -2,8 +2,6 @@ public import Dependencies
 public import Foundation
 
 public enum ProjectRootKey: Sendable, Dependency.Key.Test {
-
-    public typealias Value = URL
 }
 
 extension ProjectRootKey {
@@ -20,4 +18,9 @@ extension Dependency.Values {
         get { self[ProjectRootKey.self] }
         set { self[ProjectRootKey.self] = newValue }
     }
+}
+
+extension ProjectRootKey {
+
+    public typealias Value = URL
 }
