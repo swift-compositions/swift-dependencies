@@ -3,16 +3,14 @@ import Dependencies
 import Dependencies_Test_Support
 import Testing
 
-extension `Dependency.Values Clock Tests`.`Dependency.Values Clock Tests` {
-    @Suite
-    struct `Dependency.Values Clock Tests` {
-        @Suite struct Unit {}
-        @Suite struct `Edge Case` {}
-        @Suite struct Integration {}
-    }
+@Suite
+struct `Dependency.Values Clock Tests` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
 }
 
-extension `Dependency.Values Clock Tests`.`Dependency.Values Clock Tests`.Unit {
+extension `Dependency.Values Clock Tests`.Unit {
     @Test
     func `test mode resolves the clock to an immediate clock`() async throws {
 
@@ -46,7 +44,7 @@ extension `Dependency.Values Clock Tests`.`Dependency.Values Clock Tests`.Unit {
     }
 }
 
-extension `Dependency.Values Clock Tests`.`Dependency.Values Clock Tests`.`Edge Case` {
+extension `Dependency.Values Clock Tests`.`Edge Case` {
     @Test
     func `sleeping for a zero duration returns immediately`() async throws {
         @Dependency(\.clock) var clock
@@ -59,7 +57,7 @@ extension `Dependency.Values Clock Tests`.`Dependency.Values Clock Tests`.`Edge 
     }
 }
 
-extension `Dependency.Values Clock Tests`.`Dependency.Values Clock Tests`.Integration {
+extension `Dependency.Values Clock Tests`.Integration {
     @Test(.dependency(\.clock, Clock.`Any`(Clock.Immediate())))
     func `the dependency trait overrides the clock for a test`() async throws {
         @Dependency(\.clock) var clock

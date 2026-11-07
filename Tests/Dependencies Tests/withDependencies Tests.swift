@@ -2,13 +2,11 @@ import Testing
 
 @testable import Dependencies
 
-extension `withDependencies Tests`.`withDependencies Tests` {
-    @Suite
-    struct `withDependencies Tests` {
-    }
+@Suite
+struct `withDependencies Tests` {
 }
 
-extension `withDependencies Tests`.`withDependencies Tests`.`withDependencies Tests` {
+extension `withDependencies Tests` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -16,7 +14,7 @@ extension `withDependencies Tests`.`withDependencies Tests`.`withDependencies Te
     }
 }
 
-extension `withDependencies Tests`.`withDependencies Tests`.Test.Unit {
+extension `withDependencies Tests`.Test.Unit {
     @Test
     func `Basic override works`() throws {
         let result = withDependencies {
@@ -57,7 +55,7 @@ extension `withDependencies Tests`.`withDependencies Tests`.Test.Unit {
     }
 }
 
-extension `withDependencies Tests`.`withDependencies Tests`.Test.`Edge Case` {
+extension `withDependencies Tests`.Test.`Edge Case` {
     @Test
     func `Nested scopes work correctly`() throws {
         try withDependencies {
@@ -100,7 +98,7 @@ extension `withDependencies Tests`.`withDependencies Tests`.Test.`Edge Case` {
     }
 }
 
-extension `withDependencies Tests`.`withDependencies Tests`.Test.Integration {
+extension `withDependencies Tests`.Test.Integration {
     @Test
     func `Async variant works`() async throws {
         let result = await withDependencies {
