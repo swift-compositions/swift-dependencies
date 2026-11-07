@@ -46,20 +46,26 @@ public struct Dependency<Value: Sendable>: Sendable {
     }
 }
 
+@usableFromInline
+internal enum _Accessor<Value: Sendable>: @unchecked Sendable {
+    case keyPath(KeyPath<__DependencyValues, Value>)
+    case closure(@Sendable (__DependencyValues) -> Value)
+
+    @usableFromInline
+    func getValue(from values: __DependencyValues) -> Value {
+        switch self {
+        case .keyPath(let keyPath):
+            return values[keyPath: keyPath]
+
+        case .closure(let getter):
+            return getter(values)
+        }
+    }
+}
 
 extension Dependency {
 
     public typealias Values = __DependencyValues
 
     public typealias Context = __DependencyContext
-}
-
-extension Dependency {
-
-    public typealias Error = Witness.Unimplemented.Error
-}
-
-extension Dependency {
-
-    public typealias Key = Witness.Key
 }
