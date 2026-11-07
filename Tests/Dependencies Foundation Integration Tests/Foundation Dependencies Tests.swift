@@ -9,10 +9,8 @@ import Testing
     .dependency(\.calendar, Calendar.current)
 )
 struct Test {
-
     @Suite
     struct `Performance` {
-
         @Test
         func `Date component access is efficient`() async throws {
             let testDate = Date()
@@ -30,7 +28,7 @@ struct Test {
         func `Date arithmetic is efficient`() async throws {
             let baseDate = Date()
 
-            for i in 0..<100 {
+            (0..<100).forEach { i in
                 let _ = baseDate + i.days
             }
 
@@ -42,7 +40,6 @@ struct Test {
 extension Test {
     @Suite
     struct `Date Initialization` {
-
         @Test
         func `Date initializes with valid components`() async throws {
             let date = Date(year: 2025, month: 7, day: 26)
@@ -85,7 +82,6 @@ extension Test {
 
     @Suite
     struct `DateComponents Integer Extensions` {
-
         @Test
         func `Integer day extensions work correctly`() async throws {
             let oneDay = 1.day
@@ -139,7 +135,6 @@ extension Test {
 
     @Suite
     struct `Date Arithmetic` {
-
         @Test
         func `Date addition works correctly`() async throws {
             let baseDate = Date(year: 2025, month: 1, day: 1)!
@@ -182,7 +177,6 @@ extension Test {
 
     @Suite
     struct `Date Comparison` {
-
         @Test
         func `Date comparison methods work correctly`() async throws {
             let earlierDate = Date(year: 2025, month: 1, day: 1)!
@@ -208,7 +202,6 @@ extension Test {
 
     @Suite
     struct `Date Component Access` {
-
         @Test
         func `Date component properties return correct values`() async throws {
             let testDate = Date(year: 2025, month: 7, day: 26, hour: 15, minute: 30, second: 45)!
@@ -223,7 +216,6 @@ extension Test {
 
         @Test
         func `Weekday component works correctly`() async throws {
-
             let saturday = Date(year: 2025, month: 7, day: 26)!
             #expect(saturday.weekday == 7)
         }
@@ -240,10 +232,8 @@ extension Test {
 
     @Suite
     struct `Weekend Functionality` {
-
         @Test
         func `Weekend detection works correctly`() async throws {
-
             let saturday = Date(year: 2025, month: 7, day: 26)!
             let sunday = Date(year: 2025, month: 7, day: 27)!
             let monday = Date(year: 2025, month: 7, day: 28)!
@@ -278,7 +268,6 @@ extension Test {
 
     @Suite
     struct `Weekday Navigation` {
-
         @Test
         func `Next weekday navigation works correctly`() async throws {
             let monday = Date(year: 2025, month: 7, day: 28)!
@@ -300,7 +289,6 @@ extension Test {
 
     @Suite
     struct `Date Calculations` {
-
         @Test
         func `Days between calculation works correctly`() async throws {
             let startDate = Date(year: 2025, month: 1, day: 1)!
@@ -336,7 +324,6 @@ extension Test {
 
     @Suite
     struct `Month Boundaries` {
-
         @Test
         func `First day of month calculation works correctly`() async throws {
             let midMonth = Date(year: 2025, month: 7, day: 15)!
@@ -371,7 +358,6 @@ extension Test {
 
     @Suite
     struct `Age Calculation` {
-
         @Test
         func `Age calculation works correctly`() async throws {
             let birthDate = Date(year: 2000, month: 1, day: 1)!
@@ -401,7 +387,6 @@ extension Test {
 
     @Suite
     struct `DateComponents Arithmetic` {
-
         @Test
         func `Date Components addition works correctly`() async throws {
             let oneDay = 1.day
@@ -452,7 +437,6 @@ extension Test {
 
     @Suite
     struct `Date Format Style` {
-
         @Test
         func `date format style formats a pattern`() async throws {
             let testDate = Date(year: 2025, month: 7, day: 26)!
@@ -473,7 +457,6 @@ extension Test {
 
     @Suite
     struct `String Date Format` {
-
         @Test
         func `String Date Format works correctly`() async throws {
             let testDate = Date(year: 2025, month: 7, day: 26)!
@@ -495,7 +478,6 @@ extension Test {
 
     @Suite
     struct `Edge Cases` {
-
         @Test
         func `Leap year handling works correctly`() async throws {
             let leapDay2024 = Date(year: 2024, month: 2, day: 29)
@@ -525,7 +507,6 @@ extension Test {
 
     @Suite
     struct `Safe Arithmetic Methods` {
-
         @Test
         func `Safe adding method works correctly`() async throws {
             let baseDate = Date(year: 2025, month: 1, day: 1)!
@@ -558,7 +539,6 @@ extension Test {
 
     @Suite
     struct `Date Boundaries` {
-
         @Test
         func `Start and end of day work correctly`() async throws {
             let midDay = Date(year: 2025, month: 7, day: 26, hour: 15, minute: 30, second: 45)!
@@ -648,7 +628,6 @@ extension Test {
 
     @Suite
     struct `Date State Checks` {
-
         @Test
         func `Today state check works correctly`() async throws {
             let now = Date()
@@ -715,7 +694,6 @@ extension Test {
 
     @Suite
     struct `Component Properties` {
-
         @Test
         func `Calendar identifier property works correctly`() async throws {
             let testDate = Date(year: 2025, month: 7, day: 26)!
@@ -735,7 +713,6 @@ extension Test {
 
     @Suite
     struct `DateComponents Validation` {
-
         @Test
         func `Valid Date Components pass validation`() async throws {
             let validComponents = DateComponents(
@@ -790,7 +767,6 @@ extension Test {
 
     @Suite
     struct `TimeInterval Extensions` {
-
         @Test
         func `Time Interval constants work correctly`() async throws {
             #expect(TimeInterval.minute == 60)
@@ -831,7 +807,6 @@ extension Test {
 
     @Suite
     struct `Relative Date Formatting` {
-
         @Test
         func `Time ago formatting works correctly`() async throws {
             let now = Date()

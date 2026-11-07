@@ -5,7 +5,7 @@ import Testing
 enum `Isolation Tests` {}
 
 extension `Isolation Tests` {
-    @Suite("Isolation")
+    @Suite
     struct `Isolation` {
     }
 }
@@ -63,7 +63,6 @@ extension `Isolation Tests`.`Isolation`.Test.`Edge Case` {
                     await withDependencies {
                         $0.simple = "task-\(i)"
                     } operation: {
-
                         await Task.yield()
 
                         let value = Dependency<Never>.Context.current.simple
@@ -87,14 +86,12 @@ extension `Isolation Tests`.`Isolation`.Test.`Edge Case` {
 
             withDependencies {
                 $0.simple = "level-2"
-
             } operation: {
                 #expect(Dependency<Never>.Context.current.simple == "level-2")
                 #expect(Dependency<Never>.Context.current.eagerChild == 1)
 
                 withDependencies {
                     $0.eagerChild = 3
-
                 } operation: {
                     #expect(Dependency<Never>.Context.current.simple == "level-2")
                     #expect(Dependency<Never>.Context.current.eagerChild == 3)

@@ -5,7 +5,7 @@ import Testing
 enum `Resolution Tests` {}
 
 extension `Resolution Tests` {
-    @Suite("Resolution")
+    @Suite
     struct `Resolution` {
     }
 }
@@ -119,7 +119,6 @@ extension `Resolution Tests`.`Resolution`.Test.Integration {
         await withDependencies {
             $0.simple = "async-value"
         } operation: {
-
             await Task.yield()
 
             let value = Dependency<Never>.Context.current.simple
@@ -129,7 +128,6 @@ extension `Resolution Tests`.`Resolution`.Test.Integration {
 
     @Test
     func `Resolution with mode switching`() {
-
         withDependencies(mode: .test) { _ in
         } operation: {
             let testValue = Dependency<Never>.Context.current.simple

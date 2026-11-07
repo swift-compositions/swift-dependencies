@@ -39,18 +39,27 @@ public struct Dependency<Value: Sendable>: Sendable {
         self.fileID = fileID
         self.line = line
     }
-
-    @inlinable
-    public var wrappedValue: Value {
-        accessor.getValue(from: initial.merging(__DependencyContext.current))
-    }
 }
 
 @usableFromInline
 internal enum _Accessor<Value: Sendable>: @unchecked Sendable {
     case keyPath(KeyPath<__DependencyValues, Value>)
     case closure(@Sendable (__DependencyValues) -> Value)
+}
 
+extension Dependency {
+    public typealias Values = __DependencyValues
+
+    public typealias Context = __DependencyContext
+}
+
+extension Dependency {
+    @inlinable
+    public var wrappedValue: Value {
+        accessor.getValue(from: initial.merging(__DependencyContext.current))
+    }}
+
+extension _Accessor {
     @usableFromInline
     func getValue(from values: __DependencyValues) -> Value {
         switch self {
@@ -60,12 +69,4 @@ internal enum _Accessor<Value: Sendable>: @unchecked Sendable {
         case .closure(let getter):
             return getter(values)
         }
-    }
-}
-
-extension Dependency {
-
-    public typealias Values = __DependencyValues
-
-    public typealias Context = __DependencyContext
-}
+    }}
