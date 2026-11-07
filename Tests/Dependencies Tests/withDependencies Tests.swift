@@ -14,7 +14,7 @@ struct `withDependencies Tests` {
 extension `withDependencies Tests`.Test.Unit {
     @Test
     func `Basic override works`() throws {
-        let result = try withDependencies {
+        let result = withDependencies {
             $0[SimpleKey.self] = "overridden"
         } operation: {
             Dependency<Never>.Context.current[SimpleKey.self]
@@ -42,7 +42,7 @@ extension `withDependencies Tests`.Test.Unit {
 
     @Test
     func `Mode-aware override works`() throws {
-        try withDependencies(mode: .test) { _ in
+        withDependencies(mode: .test) { _ in
 
         } operation: {
             #expect(Dependency<Never>.Context.mode == .test)
@@ -60,7 +60,7 @@ extension `withDependencies Tests`.Test.`Edge Case` {
         } operation: {
             #expect(Dependency<Never>.Context.current[SimpleKey.self] == "outer")
 
-            try withDependencies {
+            withDependencies {
                 $0[SimpleKey.self] = "inner"
             } operation: {
                 #expect(Dependency<Never>.Context.current[SimpleKey.self] == "inner")
@@ -75,7 +75,7 @@ extension `withDependencies Tests`.Test.`Edge Case` {
         try withDependencies {
             $0[SimpleKey.self] = "set"
         } operation: {
-            try withDependencies { _ in
+            withDependencies { _ in
 
             } operation: {
 
@@ -87,7 +87,7 @@ extension `withDependencies Tests`.Test.`Edge Case` {
 
     @Test
     func `Return value passes through`() throws {
-        let result = try withDependencies { _ in
+        let result = withDependencies { _ in
         } operation: {
             42
         }
@@ -98,7 +98,7 @@ extension `withDependencies Tests`.Test.`Edge Case` {
 extension `withDependencies Tests`.Test.Integration {
     @Test
     func `Async variant works`() async throws {
-        let result = try await withDependencies {
+        let result = await withDependencies {
             $0[SimpleKey.self] = "async-value"
         } operation: {
             await Task.yield()
@@ -110,7 +110,7 @@ extension `withDependencies Tests`.Test.Integration {
 
     @Test
     func `Async with mode works`() async throws {
-        try await withDependencies(mode: .preview) {
+        withDependencies(mode: .preview) {
             $0[SimpleKey.self] = "preview-override"
         } operation: {
             #expect(Dependency<Never>.Context.mode == .preview)
@@ -140,7 +140,7 @@ extension `withDependencies Tests`.Test.Integration {
 
     @Test
     func `Delegates to Witness.Context.with`() throws {
-        try withDependencies {
+        withDependencies {
             $0[SimpleKey.self] = "delegated"
         } operation: {
 

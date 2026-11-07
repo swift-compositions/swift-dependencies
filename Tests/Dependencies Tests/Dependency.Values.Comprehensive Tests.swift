@@ -157,7 +157,7 @@ extension `__DependencyValues Tests`.Test.Comprehensive.`Edge Case` {
         } operation: {
             let tasks = (0..<5).map { i in
                 Task {
-                    await withDependencies {
+                    withDependencies {
                         $0.simple = "task-\(i)"
                     } operation: {
 

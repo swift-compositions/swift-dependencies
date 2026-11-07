@@ -15,7 +15,7 @@ extension `__DependencyValues Tests` {
 extension `__DependencyValues Tests`.Test.Unit {
     @Test
     func `Subscript get uses context`() async throws {
-        try await withDependencies(mode: .test) { _ in
+        withDependencies(mode: .test) { _ in
 
         } operation: {
             let value = Dependency<Never>.Context.current[SimpleKey.self]
@@ -25,7 +25,7 @@ extension `__DependencyValues Tests`.Test.Unit {
 
     @Test
     func `Subscript set stores value`() throws {
-        try withDependencies {
+        withDependencies {
             $0[SimpleKey.self] = "custom"
         } operation: {
             let value = Dependency<Never>.Context.current[SimpleKey.self]
@@ -45,7 +45,7 @@ extension `__DependencyValues Tests`.Test.Unit {
 extension `__DependencyValues Tests`.Test.`Edge Case` {
     @Test
     func `KeyPath-based access works`() throws {
-        try withDependencies {
+        withDependencies {
             $0.simple = "keypath-value"
         } operation: {
             let value = Dependency<Never>.Context.current.simple
@@ -77,7 +77,7 @@ extension `__DependencyValues Tests`.Test.Integration {
     @Test
     func `Values wrapper correctly delegates to Witness.Values`() throws {
 
-        try withDependencies {
+        withDependencies {
             $0[SimpleKey.self] = "stored"
         } operation: {
 

@@ -68,7 +68,7 @@ struct `Escaping Tests` {
 
     @Test
     func `A continuation is usable from an async yield`() async {
-        let continuation = await withDependencies {
+        let continuation = withDependencies {
             $0.greeting = "async captured"
         } operation: {
             withEscapedDependencies { $0 }
@@ -96,7 +96,7 @@ struct `Escaping Tests` {
 
     @Test
     func `An escaped continuation carries values into a later task`() async {
-        let continuation = await withDependencies {
+        let continuation = withDependencies {
             $0.number = 5
         } operation: {
             withEscapedDependencies { $0 }

@@ -26,7 +26,7 @@ extension `prepareDependencies Tests`.Test.Unit {
 
     @Test
     func `Async preparation runs without error`() async {
-        let result = await prepareDependencies { store in
+        let result = prepareDependencies { store in
             store.set(SimpleKey.self, value: "async-prepared")
         } operation: {
             "async-completed"

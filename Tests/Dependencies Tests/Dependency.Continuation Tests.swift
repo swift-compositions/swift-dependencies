@@ -109,7 +109,7 @@ extension `__DependencyContext Tests`.Test.Continuation.Integration {
     func `Continuation with async work`() async {
         var savedContinuation: Dependency<Never>.Continuation?
 
-        await withDependencies {
+        withDependencies {
             $0[SimpleKey.self] = "async-captured"
         } operation: {
             Dependency<Never>.Context.withEscaped { continuation in
@@ -118,7 +118,7 @@ extension `__DependencyContext Tests`.Test.Continuation.Integration {
         }
 
         var capturedValue: String?
-        await savedContinuation?.yield {
+        savedContinuation?.yield {
             capturedValue = Dependency<Never>.Context.current[SimpleKey.self]
         }
 

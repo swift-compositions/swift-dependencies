@@ -19,7 +19,7 @@ struct `Task Propagation Tests` {
 
     @Test
     func `An unstructured task keeps its scope after the scope has ended`() async {
-        let task = await withDependencies {
+        let task = withDependencies {
             $0.greeting = "captured at creation"
         } operation: {
             Task {
@@ -142,7 +142,7 @@ struct `Task Propagation Tests` {
         await withDependencies {
             $0.number = 1
         } operation: {
-            async let inner: Int = await withDependencies {
+            async let inner: Int = withDependencies {
                 $0.number += 1
             } operation: {
                 Dependency<Never>.Context.current.number
@@ -156,7 +156,7 @@ struct `Task Propagation Tests` {
 
     @Test
     func `A stream element is produced in the consumer's scope unless escaped`() async {
-        let (plain, escaped) = await withDependencies {
+        let (plain, escaped) = withDependencies {
             $0.greeting = "producer"
         } operation: {
             let plain = AsyncStream<String>(unfolding: {

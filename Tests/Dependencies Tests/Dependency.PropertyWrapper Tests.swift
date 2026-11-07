@@ -31,7 +31,7 @@ extension `Dependency Tests`.Test.Unit {
     func `Property wrapper accesses current context value`() throws {
         let consumer = DependencyConsumer()
 
-        try withDependencies {
+        withDependencies {
             $0.simple = "wrapped-value"
         } operation: {
             let value = consumer.getSimple()
@@ -54,7 +54,7 @@ extension `Dependency Tests`.Test.`Edge Case` {
 
         #expect(consumer.getSimple() == "live")
 
-        try withDependencies {
+        withDependencies {
             $0.simple = "scoped"
         } operation: {
 
@@ -92,7 +92,7 @@ extension `Dependency Tests`.Test.Integration {
         } operation: {
             #expect(consumer.getSimple() == "outer")
 
-            try withDependencies {
+            withDependencies {
                 $0.simple = "inner"
             } operation: {
                 #expect(consumer.getSimple() == "inner")

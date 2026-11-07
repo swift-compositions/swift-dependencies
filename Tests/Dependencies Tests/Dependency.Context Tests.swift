@@ -41,7 +41,7 @@ extension `__DependencyContext Tests`.Test.`Edge Case` {
 
         #expect(Dependency<Never>.Context.mode == .live)
 
-        try withDependencies(mode: .test) { _ in
+        withDependencies(mode: .test) { _ in
 
         } operation: {
 
@@ -56,7 +56,7 @@ extension `__DependencyContext Tests`.Test.Integration {
     @Test
     func `Context delegates to Witness.Context`() async throws {
 
-        try await Witness.Context.with { values in
+        Witness.Context.with { values in
             values[SimpleKey.self] = "witness-override"
         } operation: {
             let depValue = Dependency<Never>.Context.current[SimpleKey.self]
@@ -66,7 +66,7 @@ extension `__DependencyContext Tests`.Test.Integration {
 
     @Test
     func `Context surfaces L1-only override pushed by withDependencies`() throws {
-        try withDependencies {
+        withDependencies {
             $0[L1OnlyKey.self] = "l1-round-trip"
         } operation: {
             let value = Dependency<Never>.Context.current[L1OnlyKey.self]
@@ -76,7 +76,7 @@ extension `__DependencyContext Tests`.Test.Integration {
 
     @Test
     func `Context falls back to L1-only key's testValue in test mode with no override`() throws {
-        try withDependencies(mode: .test) { _ in
+        withDependencies(mode: .test) { _ in
 
         } operation: {
             let value = Dependency<Never>.Context.current[L1OnlyKey.self]

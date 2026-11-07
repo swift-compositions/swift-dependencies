@@ -198,7 +198,7 @@ extension `Edge Cases`.Test.Integration {
         await withDependencies {
             $0.intValue = 888
         } operation: {
-            let type = await MainActorType()
+            let type = MainActorType()
             let value = await type.getValue()
             #expect(value == 888)
         }

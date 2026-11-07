@@ -57,7 +57,7 @@ extension `Dependency.Key Tests`.Test.`Edge Case` {
 
     @Test
     func `Key subscript access in Values`() throws {
-        try withDependencies {
+        withDependencies {
             $0[SimpleKey.self] = "subscript-value"
         } operation: {
             let value = Dependency<Never>.Context.current[SimpleKey.self]
@@ -67,7 +67,7 @@ extension `Dependency.Key Tests`.Test.`Edge Case` {
 
     @Test
     func `KeyPath access in Values`() throws {
-        try withDependencies {
+        withDependencies {
             $0.simple = "keypath-value"
         } operation: {
             let value = Dependency<Never>.Context.current.simple
@@ -80,13 +80,13 @@ extension `Dependency.Key Tests`.Test.Integration {
     @Test
     func `Key resolution respects context mode`() throws {
 
-        try withDependencies(mode: .test) { _ in
+        withDependencies(mode: .test) { _ in
         } operation: {
             let value = Dependency<Never>.Context.current[SimpleKey.self]
             #expect(value == "test")
         }
 
-        try withDependencies(mode: .preview) { _ in
+        withDependencies(mode: .preview) { _ in
         } operation: {
             let value = Dependency<Never>.Context.current[SimpleKey.self]
             #expect(value == "preview")
@@ -95,7 +95,7 @@ extension `Dependency.Key Tests`.Test.Integration {
 
     @Test
     func `Key override takes precedence over mode`() throws {
-        try withDependencies(mode: .test) {
+        withDependencies(mode: .test) {
             $0[SimpleKey.self] = "explicit-override"
         } operation: {
             let value = Dependency<Never>.Context.current[SimpleKey.self]
