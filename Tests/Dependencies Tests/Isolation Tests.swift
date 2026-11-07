@@ -2,8 +2,15 @@ import Testing
 
 @testable import Dependencies
 
-@Suite("Isolation")
-struct `Isolation` {
+enum `Isolation Tests` {}
+
+extension `Isolation Tests` {
+    @Suite("Isolation")
+    struct `Isolation` {
+    }
+}
+
+extension `Isolation Tests`.`Isolation` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -11,7 +18,7 @@ struct `Isolation` {
     }
 }
 
-extension `Isolation`.Test.Unit {
+extension `Isolation Tests`.`Isolation`.Test.Unit {
     @Test
     func `Each test starts with clean context`() {
         @Dependency(\.counting) var counting
@@ -45,7 +52,7 @@ extension `Isolation`.Test.Unit {
     }
 }
 
-extension `Isolation`.Test.`Edge Case` {
+extension `Isolation Tests`.`Isolation`.Test.`Edge Case` {
     @Test
     func `Concurrent scopes are isolated`() async {
         let iterations = 10
@@ -148,7 +155,7 @@ extension `Isolation`.Test.`Edge Case` {
     }
 }
 
-extension `Isolation`.Test.Integration {
+extension `Isolation Tests`.`Isolation`.Test.Integration {
     @Test
     func `Task isolation with TaskGroup`() async {
         await withDependencies {

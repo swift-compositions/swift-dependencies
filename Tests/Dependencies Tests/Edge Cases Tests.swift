@@ -2,8 +2,15 @@ import Testing
 
 @testable import Dependencies
 
-@Suite
-struct `Edge Cases` {
+enum `Edge Cases Tests` {}
+
+extension `Edge Cases Tests` {
+    @Suite
+    struct `Edge Cases` {
+    }
+}
+
+extension `Edge Cases Tests`.`Edge Cases` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -11,7 +18,7 @@ struct `Edge Cases` {
     }
 }
 
-extension `Edge Cases`.Test.Unit {
+extension `Edge Cases Tests`.`Edge Cases`.Test.Unit {
     @Test
     func `Dependency with type-based subscript access`() {
         struct MyDependency: Dependency.Key {
@@ -66,7 +73,7 @@ extension `Edge Cases`.Test.Unit {
     }
 }
 
-extension `Edge Cases`.Test.`Edge Case` {
+extension `Edge Cases Tests`.`Edge Cases`.Test.`Edge Case` {
     @Test
     func `Deeply nested model hierarchy`() {
         class NestedModel: @unchecked Sendable {
@@ -167,7 +174,7 @@ extension `Edge Cases`.Test.`Edge Case` {
     }
 }
 
-extension `Edge Cases`.Test.Integration {
+extension `Edge Cases Tests`.`Edge Cases`.Test.Integration {
     @Test
     func `Actor with dependencies`() async {
         actor DependentActor {

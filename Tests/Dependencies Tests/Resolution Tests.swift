@@ -2,8 +2,15 @@ import Testing
 
 @testable import Dependencies
 
-@Suite("Resolution")
-struct `Resolution` {
+enum `Resolution Tests` {}
+
+extension `Resolution Tests` {
+    @Suite("Resolution")
+    struct `Resolution` {
+    }
+}
+
+extension `Resolution Tests`.`Resolution` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -11,7 +18,7 @@ struct `Resolution` {
     }
 }
 
-extension `Resolution`.Test.Unit {
+extension `Resolution Tests`.`Resolution`.Test.Unit {
     @Test
     func `Eager dependency resolution`() {
         @Dependency(\.eagerChild) var eagerChild: Int
@@ -34,7 +41,7 @@ extension `Resolution`.Test.Unit {
     }
 }
 
-extension `Resolution`.Test.`Edge Case` {
+extension `Resolution Tests`.`Resolution`.Test.`Edge Case` {
     @Test
     func `Eager dependency with override`() {
         @Dependency(\.eagerChild) var eagerChild: Int
@@ -92,7 +99,7 @@ extension `Resolution`.Test.`Edge Case` {
     }
 }
 
-extension `Resolution`.Test.Integration {
+extension `Resolution Tests`.`Resolution`.Test.Integration {
     @Test
     func `Multiple dependencies resolved together`() {
         withDependencies {

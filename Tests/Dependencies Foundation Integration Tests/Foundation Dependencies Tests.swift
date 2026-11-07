@@ -11,6 +11,36 @@ import Testing
 struct Test {
 
     @Suite
+    struct `Performance` {
+
+        @Test
+        func `Date component access is efficient`() async throws {
+            let testDate = Date()
+
+            for _ in 0..<1000 {
+                let _ = testDate.year
+                let _ = testDate.month
+                let _ = testDate.day
+            }
+
+            #expect(true)
+        }
+
+        @Test
+        func `Date arithmetic is efficient`() async throws {
+            let baseDate = Date()
+
+            for i in 0..<100 {
+                let _ = baseDate + i.days
+            }
+
+            #expect(true)
+        }
+    }
+}
+
+extension Test {
+    @Suite
     struct `Date Initialization` {
 
         @Test
@@ -680,34 +710,6 @@ struct Test {
 
             let nextYear = now + 1.year
             #expect(!nextYear.isThisYear)
-        }
-    }
-
-    @Suite
-    struct `Performance` {
-
-        @Test
-        func `Date component access is efficient`() async throws {
-            let testDate = Date()
-
-            for _ in 0..<1000 {
-                let _ = testDate.year
-                let _ = testDate.month
-                let _ = testDate.day
-            }
-
-            #expect(true)
-        }
-
-        @Test
-        func `Date arithmetic is efficient`() async throws {
-            let baseDate = Date()
-
-            for i in 0..<100 {
-                let _ = baseDate + i.days
-            }
-
-            #expect(true)
         }
     }
 

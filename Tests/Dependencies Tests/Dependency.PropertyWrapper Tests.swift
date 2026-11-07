@@ -4,6 +4,9 @@ import Testing
 
 @Suite
 struct `Dependency Tests` {
+}
+
+extension `Dependency Tests` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
