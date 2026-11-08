@@ -3,13 +3,11 @@ import Witnesses
 
 @testable import Dependencies
 
-extension `prepareDependencies Tests`.`prepareDependencies Tests` {
-    @Suite
-    struct `prepareDependencies Tests` {
-    }
+@Suite
+struct `prepareDependencies Tests` {
 }
 
-extension `prepareDependencies Tests`.`prepareDependencies Tests` {
+extension `prepareDependencies Tests` {
     @Suite struct Test {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
@@ -17,7 +15,7 @@ extension `prepareDependencies Tests`.`prepareDependencies Tests` {
     }
 }
 
-extension `prepareDependencies Tests`.`prepareDependencies Tests`.Test.Unit {
+extension `prepareDependencies Tests`.Test.Unit {
     @Test
     func `Sync preparation runs without error`() {
         let result = prepareDependencies { store in
@@ -70,7 +68,7 @@ extension `prepareDependencies Tests`.`prepareDependencies Tests`.Test.Unit {
     }
 }
 
-extension `prepareDependencies Tests`.`prepareDependencies Tests`.Test.`Edge Case` {
+extension `prepareDependencies Tests`.Test.`Edge Case` {
     @Test
     func `Empty preparation works`() {
         let result = prepareDependencies { _ in
@@ -98,7 +96,7 @@ extension `prepareDependencies Tests`.`prepareDependencies Tests`.Test.`Edge Cas
     }
 }
 
-extension `prepareDependencies Tests`.`prepareDependencies Tests`.Test.Integration {
+extension `prepareDependencies Tests`.Test.Integration {
     @Test
     func `withDependencies works inside prepareDependencies`() {
         prepareDependencies { _ in
