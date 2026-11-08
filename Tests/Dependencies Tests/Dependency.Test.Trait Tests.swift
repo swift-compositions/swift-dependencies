@@ -3,9 +3,9 @@
     import Dependencies
     import Dependencies_Test_Support
 
-enum `Dependency.Test.Trait Tests` {}
+    enum `Dependency.Test.Trait Tests` {}
 
-extension `Dependency.Test.Trait Tests` {
+    extension `Dependency.Test.Trait Tests` {
         @Suite(.dependencies)
         struct `Dependency Test Traits` {
 
@@ -22,9 +22,9 @@ extension `Dependency.Test.Trait Tests` {
                 #expect(client.increment() == 2)
             }
         }
-}
+    }
 
-extension `Dependency.Test.Trait Tests` {
+    extension `Dependency.Test.Trait Tests` {
         @Suite(.dependencies)
         struct `Single Dependency Override` {
 
@@ -52,9 +52,9 @@ extension `Dependency.Test.Trait Tests` {
                 #expect(optionalValue == "some-value")
             }
         }
-}
+    }
 
-extension `Dependency.Test.Trait Tests` {
+    extension `Dependency.Test.Trait Tests` {
         @Suite(.dependencies)
         struct `Multiple Dependencies Override` {
 
@@ -91,13 +91,13 @@ extension `Dependency.Test.Trait Tests` {
                 #expect(result == "custom-fetch")
             }
         }
-}
+    }
 
-extension `Dependency.Test.Trait Tests` {
+    extension `Dependency.Test.Trait Tests` {
         @Suite(.dependencies)
         struct `Nested Suite Traits` {
         }
-}
+    }
 
     extension `Dependency.Test.Trait Tests`.`Nested Suite Traits` {
         @Suite(.dependency(\.simple, "outer"))
@@ -125,7 +125,7 @@ extension `Dependency.Test.Trait Tests` {
         }
     }
 
-extension `Dependency.Test.Trait Tests` {
+    extension `Dependency.Test.Trait Tests` {
         @Suite(.dependencies)
         struct `Trait Isolation` {
 
@@ -145,9 +145,9 @@ extension `Dependency.Test.Trait Tests` {
                 #expect(client.increment() == 2)
             }
         }
-}
+    }
 
-extension `Dependency.Test.Trait Tests` {
+    extension `Dependency.Test.Trait Tests` {
         @Suite(.dependencies)
         struct `Mode Resolution with Traits` {
 
@@ -163,7 +163,7 @@ extension `Dependency.Test.Trait Tests` {
                 #expect(modeAware == "overridden")
             }
         }
-}
+    }
 
     extension __DependencyTestTrait {
         @Suite struct `L1 Scope` {

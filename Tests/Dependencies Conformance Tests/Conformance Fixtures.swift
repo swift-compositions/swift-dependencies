@@ -15,7 +15,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum LiveOnlyKey: Dependency.Key {
+private enum LiveOnlyKey: Dependency.Key {
     typealias Value = String
     static var liveValue: String { "only live" }
 }
@@ -27,7 +27,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum LiveAndPreviewKey: Dependency.Key {
+private enum LiveAndPreviewKey: Dependency.Key {
     static var liveValue: String { "live half" }
     static var previewValue: String { "preview half" }
 }
@@ -50,7 +50,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum NumberKey: Dependency.Key {
+private enum NumberKey: Dependency.Key {
     typealias Value = Int
     static var liveValue: Int { 0 }
 }

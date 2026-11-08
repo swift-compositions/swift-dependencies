@@ -48,7 +48,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum IntKey: Dependency.Key {}
+private enum IntKey: Dependency.Key {}
 
 extension IntKey {
     static var liveValue: Int { -1 }
@@ -62,7 +62,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum StringKey: Dependency.Key {}
+private enum StringKey: Dependency.Key {}
 
 extension StringKey {
     static var liveValue: String { "live-string" }
@@ -76,7 +76,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum EagerChildKey: Dependency.Key {}
+private enum EagerChildKey: Dependency.Key {}
 
 extension EagerChildKey {
     static var liveValue: Int { 1729 }
@@ -90,7 +90,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum LazyChildKey: Dependency.Key {}
+private enum LazyChildKey: Dependency.Key {}
 
 extension LazyChildKey {
     static var liveValue: @Sendable () -> Int { { 1729 } }
@@ -104,7 +104,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum ModeAwareKey: Dependency.Key {}
+private enum ModeAwareKey: Dependency.Key {}
 
 extension ModeAwareKey {
     static var liveValue: String { "live-default" }
@@ -119,7 +119,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate enum OptionalKey: Dependency.Key {}
+private enum OptionalKey: Dependency.Key {}
 
 extension OptionalKey {
     static var liveValue: String? { "live-optional" }
@@ -133,7 +133,7 @@ extension Dependency.Values {
     }
 }
 
-fileprivate struct CountingClient: Sendable {
+private struct CountingClient: Sendable {
     private let _increment: @Sendable () -> Int
 
     init(_ increment: @escaping @Sendable () -> Int) {
@@ -147,7 +147,7 @@ extension CountingClient {
     }
 }
 
-fileprivate final class UnsafeCurrentValueContainer<Value>: @unchecked Sendable {
+private final class UnsafeCurrentValueContainer<Value>: @unchecked Sendable {
     var value: Value
 
     init(_ value: Value) {
@@ -155,7 +155,7 @@ fileprivate final class UnsafeCurrentValueContainer<Value>: @unchecked Sendable 
     }
 }
 
-fileprivate enum CountingKey: Dependency.Key {}
+private enum CountingKey: Dependency.Key {}
 
 extension CountingKey {
     static var liveValue: CountingClient {

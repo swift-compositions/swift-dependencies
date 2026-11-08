@@ -41,7 +41,6 @@ public struct Dependency<Value: Sendable>: Sendable {
     }
 }
 
-
 extension Dependency {
     public typealias Values = __DependencyValues
 
@@ -52,7 +51,8 @@ extension Dependency {
     @inlinable
     public var wrappedValue: Value {
         accessor.getValue(from: initial.merging(__DependencyContext.current))
-    }}
+    }
+}
 
 extension _Accessor {
     @usableFromInline
@@ -64,7 +64,8 @@ extension _Accessor {
         case .closure(let getter):
             return getter(values)
         }
-    }}
+    }
+}
 
 extension Dependency {
 
