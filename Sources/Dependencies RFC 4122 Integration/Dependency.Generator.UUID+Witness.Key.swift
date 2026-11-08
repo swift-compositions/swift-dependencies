@@ -9,7 +9,7 @@
             Self {
                 unsafe RFC_4122.UUID.v4(fillRandom: { buffer in
                     var generator = SystemRandomNumberGenerator()
-                    for index in 0..<16 {
+                    (0..<16).forEach { index in
                         unsafe buffer[index] = generator.next()
                     }
                 })
