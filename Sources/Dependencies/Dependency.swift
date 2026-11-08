@@ -41,11 +41,6 @@ public struct Dependency<Value: Sendable>: Sendable {
     }
 }
 
-@usableFromInline
-internal enum _Accessor<Value: Sendable>: @unchecked Sendable {
-    case keyPath(KeyPath<__DependencyValues, Value>)
-    case closure(@Sendable (__DependencyValues) -> Value)
-}
 
 extension Dependency {
     public typealias Values = __DependencyValues
@@ -70,3 +65,13 @@ extension _Accessor {
             return getter(values)
         }
     }}
+
+extension Dependency {
+
+    public typealias Error = Witness.Unimplemented.Error
+}
+
+extension Dependency {
+
+    public typealias Key = Witness.Key
+}
