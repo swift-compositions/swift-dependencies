@@ -39,19 +39,18 @@ public struct Dependency<Value: Sendable>: Sendable {
         self.fileID = fileID
         self.line = line
     }
+
+    /// A property wrapper's `wrappedValue` has to be declared in its body.
+    @inlinable
+    public var wrappedValue: Value {
+        accessor.getValue(from: initial.merging(__DependencyContext.current))
+    }
 }
 
 extension Dependency {
     public typealias Values = __DependencyValues
 
     public typealias Context = __DependencyContext
-}
-
-extension Dependency {
-    @inlinable
-    public var wrappedValue: Value {
-        accessor.getValue(from: initial.merging(__DependencyContext.current))
-    }
 }
 
 extension _Accessor {

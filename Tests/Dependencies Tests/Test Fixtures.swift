@@ -133,7 +133,7 @@ extension Dependency.Values {
     }
 }
 
-private struct CountingClient: Sendable {
+struct CountingClient: Sendable {
     private let _increment: @Sendable () -> Int
 
     init(_ increment: @escaping @Sendable () -> Int) {
