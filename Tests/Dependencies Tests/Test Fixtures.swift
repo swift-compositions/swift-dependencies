@@ -48,7 +48,7 @@ extension Dependency.Values {
     }
 }
 
-enum IntKey: Dependency.Key {}
+fileprivate enum IntKey: Dependency.Key {}
 
 extension IntKey {
     static var liveValue: Int { -1 }
@@ -62,7 +62,7 @@ extension Dependency.Values {
     }
 }
 
-enum StringKey: Dependency.Key {}
+fileprivate enum StringKey: Dependency.Key {}
 
 extension StringKey {
     static var liveValue: String { "live-string" }
@@ -76,7 +76,7 @@ extension Dependency.Values {
     }
 }
 
-enum EagerChildKey: Dependency.Key {}
+fileprivate enum EagerChildKey: Dependency.Key {}
 
 extension EagerChildKey {
     static var liveValue: Int { 1729 }
@@ -90,7 +90,7 @@ extension Dependency.Values {
     }
 }
 
-enum LazyChildKey: Dependency.Key {}
+fileprivate enum LazyChildKey: Dependency.Key {}
 
 extension LazyChildKey {
     static var liveValue: @Sendable () -> Int { { 1729 } }
@@ -104,7 +104,7 @@ extension Dependency.Values {
     }
 }
 
-enum ModeAwareKey: Dependency.Key {}
+fileprivate enum ModeAwareKey: Dependency.Key {}
 
 extension ModeAwareKey {
     static var liveValue: String { "live-default" }
@@ -119,7 +119,7 @@ extension Dependency.Values {
     }
 }
 
-enum OptionalKey: Dependency.Key {}
+fileprivate enum OptionalKey: Dependency.Key {}
 
 extension OptionalKey {
     static var liveValue: String? { "live-optional" }
@@ -133,7 +133,7 @@ extension Dependency.Values {
     }
 }
 
-struct CountingClient: Sendable {
+fileprivate struct CountingClient: Sendable {
     private let _increment: @Sendable () -> Int
 
     init(_ increment: @escaping @Sendable () -> Int) {
@@ -147,7 +147,7 @@ extension CountingClient {
     }
 }
 
-final class UnsafeCurrentValueContainer<Value>: @unchecked Sendable {
+fileprivate final class UnsafeCurrentValueContainer<Value>: @unchecked Sendable {
     var value: Value
 
     init(_ value: Value) {
@@ -155,7 +155,7 @@ final class UnsafeCurrentValueContainer<Value>: @unchecked Sendable {
     }
 }
 
-enum CountingKey: Dependency.Key {}
+fileprivate enum CountingKey: Dependency.Key {}
 
 extension CountingKey {
     static var liveValue: CountingClient {

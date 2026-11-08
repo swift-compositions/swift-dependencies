@@ -96,14 +96,14 @@ extension `Dependency.Key.Strict Tests`.Test.Integration {
     }
 }
 
-enum StrictTestKey: Dependency<Never>.Key.Strict {}
+fileprivate enum StrictTestKey: Dependency<Never>.Key.Strict {}
 
 extension StrictTestKey {
     typealias Value = String
     static var liveValue: String { "strict-live" }
 }
 
-enum AnotherStrictKey: Dependency<Never>.Key.Strict {}
+fileprivate enum AnotherStrictKey: Dependency<Never>.Key.Strict {}
 
 extension AnotherStrictKey {
     typealias Value = Int

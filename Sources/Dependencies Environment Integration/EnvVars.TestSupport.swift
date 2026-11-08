@@ -13,7 +13,7 @@ extension EnvVars {
 }
 
 extension Set<String> {
-    package static let localWebDevelopmentEnvVarsRequiredKeys: Set<String> = [
+    static let localWebDevelopmentEnvVarsRequiredKeys: Set<String> = [
         "APP_SECRET",
         "APP_ENV",
         "BASE_URL",

@@ -14,7 +14,7 @@ extension `Dependency Tests` {
     }
 }
 
-struct DependencyConsumer: Sendable {
+fileprivate struct DependencyConsumer: Sendable {
     @Dependency(\.simple) var simple
     @Dependency(\.testAPI) var testAPI
 }
