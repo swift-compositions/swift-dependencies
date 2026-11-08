@@ -65,7 +65,7 @@ let package = Package(
             name: "Dependencies RFC 4122 Integration",
             dependencies: [
                 .target(name: "Dependencies"),
-                .product(name: "Witnesses", package: "swift-witnesses"),
+                .product(name: "Witnesses", package: "swift-witnesses", condition: .when(traits: ["RFC4122"])),
                 .product(name: "RFC 4122", package: "swift-rfc-4122", condition: .when(traits: ["RFC4122"])),
             ],
             path: "Sources/Dependencies RFC 4122 Integration"
@@ -74,7 +74,7 @@ let package = Package(
             name: "Dependencies Time Integration",
             dependencies: [
                 .target(name: "Dependencies"),
-                .product(name: "Witnesses", package: "swift-witnesses"),
+                .product(name: "Witnesses", package: "swift-witnesses", condition: .when(traits: ["Time"])),
                 .product(name: "Time", package: "swift-time", condition: .when(traits: ["Time"])),
             ],
             path: "Sources/Dependencies Time Integration"
