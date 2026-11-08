@@ -3,7 +3,7 @@ import Testing
 @testable import Dependencies
 
 extension `__DependencyContext Tests`.Test {
-    @Suite("Dependency.Continuation") struct Continuation {
+    @Suite struct Continuation {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
         @Suite struct Integration {}

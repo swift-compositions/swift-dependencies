@@ -3,7 +3,7 @@ import Testing
 @testable import Dependencies
 
 extension `__DependencyValues Tests`.Test {
-    @Suite("Dependency.Values.Comprehensive") struct Comprehensive {
+    @Suite struct Comprehensive {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}
         @Suite struct Integration {}
