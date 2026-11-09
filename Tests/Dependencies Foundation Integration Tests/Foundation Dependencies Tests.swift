@@ -29,7 +29,7 @@ struct Test {
             let baseDate = Date()
 
             (0..<100).forEach { i in
-                let _ = baseDate + i.days
+                _ = baseDate + i.days
             }
 
             #expect(true)
@@ -139,13 +139,13 @@ extension Test {
         func `Date addition works correctly`() async throws {
             let baseDate = Date(year: 2025, month: 1, day: 1)!
 
-            let nextDay = baseDate + 1.day
+            let nextDay = try #require(baseDate + 1.day)
             #expect(nextDay.day == 2)
 
-            let nextMonth = baseDate + 1.month
+            let nextMonth = try #require(baseDate + 1.month)
             #expect(nextMonth.month == 2)
 
-            let nextYear = baseDate + 1.year
+            let nextYear = try #require(baseDate + 1.year)
             #expect(nextYear.year == 2026)
         }
 
@@ -153,13 +153,13 @@ extension Test {
         func `Date subtraction works correctly`() async throws {
             let baseDate = Date(year: 2025, month: 2, day: 15)!
 
-            let previousDay = baseDate - 1.day
+            let previousDay = try #require(baseDate - 1.day)
             #expect(previousDay.day == 14)
 
-            let previousMonth = baseDate - 1.month
+            let previousMonth = try #require(baseDate - 1.month)
             #expect(previousMonth.month == 1)
 
-            let previousYear = baseDate - 1.year
+            let previousYear = try #require(baseDate - 1.year)
             #expect(previousYear.year == 2024)
         }
 
@@ -167,7 +167,7 @@ extension Test {
         func `Complex date arithmetic works correctly`() async throws {
             let baseDate = Date(year: 2025, month: 1, day: 1, hour: 12)!
 
-            let complexDate = baseDate + 1.year + 6.months + 2.hours + 30.minutes
+            let complexDate = try #require(baseDate + (1.year + 6.months + 2.hours + 30.minutes))
             #expect(complexDate.year == 2026)
             #expect(complexDate.month == 7)
             #expect(complexDate.hour == 14)
@@ -429,7 +429,7 @@ extension Test {
         func `Date Components zero constant works correctly`() async throws {
             let zero = DateComponents.zero
             let baseDate = Date()
-            let resultDate = baseDate + zero
+            let resultDate = try #require(baseDate + zero)
 
             #expect(abs(resultDate.timeIntervalSince(baseDate)) < 1.0)
         }
@@ -490,7 +490,7 @@ extension Test {
         @Test
         func `Month boundary calculations handle edge cases`() async throws {
             let jan31 = Date(year: 2025, month: 1, day: 31)!
-            let nextMonth = jan31 + 1.month
+            let nextMonth = try #require(jan31 + 1.month)
 
             #expect(nextMonth.month == 2)
             #expect(nextMonth.day <= 29)
@@ -499,7 +499,7 @@ extension Test {
         @Test
         func `Large date arithmetic works correctly`() async throws {
             let baseDate = Date(year: 2025, month: 1, day: 1)!
-            let farFuture = baseDate + 100.years
+            let farFuture = try #require(baseDate + 100.years)
 
             #expect(farFuture.year == 2125)
         }
@@ -639,18 +639,18 @@ extension Test {
             #expect(todayNoon.isToday)
             #expect(!nextDayStart.isToday)
 
-            let yesterday = now - 1.day
+            let yesterday = try #require(now - 1.day)
             #expect(!yesterday.isToday)
 
-            let tomorrow = now + 1.day
+            let tomorrow = try #require(now + 1.day)
             #expect(!tomorrow.isToday)
         }
 
         @Test
         func `Tomorrow and yesterday state checks work correctly`() async throws {
             let now = Date()
-            let tomorrow = now + 1.day
-            let yesterday = now - 1.day
+            let tomorrow = try #require(now + 1.day)
+            let yesterday = try #require(now - 1.day)
 
             #expect(tomorrow.isTomorrow)
             #expect(!now.isTomorrow)
@@ -672,7 +672,7 @@ extension Test {
             #expect(thisWeekInterior.isThisWeek)
             #expect(!nextWeekStart.isThisWeek)
 
-            let nextWeek = now + 1.weeks
+            let nextWeek = try #require(now + 1.weeks)
             #expect(!nextWeek.isThisWeek)
         }
 
@@ -683,11 +683,11 @@ extension Test {
             #expect(now.isThisMonth)
             #expect(now.isThisYear)
 
-            let nextMonth = now + 1.month
+            let nextMonth = try #require(now + 1.month)
             #expect(!nextMonth.isThisMonth)
             #expect(nextMonth.isThisYear)
 
-            let nextYear = now + 1.year
+            let nextYear = try #require(now + 1.year)
             #expect(!nextYear.isThisYear)
         }
     }
@@ -811,19 +811,19 @@ extension Test {
         func `Time ago formatting works correctly`() async throws {
             let now = Date()
 
-            let fiveSecondsAgo = now - 5.seconds
+            let fiveSecondsAgo = try #require(now - 5.seconds)
             #expect(fiveSecondsAgo.timeAgoSince(now) == "just now")
 
-            let thirtySecondsAgo = now - 30.seconds
+            let thirtySecondsAgo = try #require(now - 30.seconds)
             #expect(thirtySecondsAgo.timeAgoSince(now) == "30 seconds ago")
 
-            let twoMinutesAgo = now - 2.minutes
+            let twoMinutesAgo = try #require(now - 2.minutes)
             #expect(twoMinutesAgo.timeAgoSince(now) == "2 minutes ago")
 
-            let oneHourAgo = now - 1.hour
+            let oneHourAgo = try #require(now - 1.hour)
             #expect(oneHourAgo.timeAgoSince(now) == "1 hour ago")
 
-            let threeDaysAgo = now - 3.days
+            let threeDaysAgo = try #require(now - 3.days)
             #expect(threeDaysAgo.timeAgoSince(now) == "3 days ago")
         }
 
@@ -831,19 +831,19 @@ extension Test {
         func `Time until formatting works correctly`() async throws {
             let now = Date()
 
-            let inFiveSeconds = now + 5.seconds
+            let inFiveSeconds = try #require(now + 5.seconds)
             #expect(inFiveSeconds.timeUntil(now) == "now")
 
-            let inThirtySeconds = now + 30.seconds
+            let inThirtySeconds = try #require(now + 30.seconds)
             #expect(inThirtySeconds.timeUntil(now) == "in 30 seconds")
 
-            let inTwoMinutes = now + 2.minutes
+            let inTwoMinutes = try #require(now + 2.minutes)
             #expect(inTwoMinutes.timeUntil(now) == "in 2 minutes")
 
-            let inOneHour = now + 1.hour
+            let inOneHour = try #require(now + 1.hour)
             #expect(inOneHour.timeUntil(now) == "in 1 hour")
 
-            let inThreeDays = now + 3.days
+            let inThreeDays = try #require(now + 3.days)
             #expect(inThreeDays.timeUntil(now) == "in 3 days")
         }
 
@@ -851,16 +851,16 @@ extension Test {
         func `Relative formatted property works correctly`() async throws {
             let now = Date()
 
-            let yesterday = now - 1.day
-            let tomorrow = now + 1.day
+            let yesterday = try #require(now - 1.day)
+            let tomorrow = try #require(now + 1.day)
 
             #expect(yesterday.relativeFormatted == "yesterday")
             #expect(tomorrow.relativeFormatted == "tomorrow")
 
-            let oneHourAgo = now - 1.hour
-            let oneHourFromNow = now + 1.hour
-            let lastWeek = now - 8.days
-            let nextWeek = now + 8.days
+            let oneHourAgo = try #require(now - 1.hour)
+            let oneHourFromNow = try #require(now + 1.hour)
+            let lastWeek = try #require(now - 8.days)
+            let nextWeek = try #require(now + 8.days)
 
             #expect(!oneHourAgo.relativeFormatted.isEmpty)
             #expect(!oneHourFromNow.relativeFormatted.isEmpty)
@@ -874,14 +874,14 @@ extension Test {
         func `Singular vs plural formatting works correctly`() async throws {
             let now = Date()
 
-            let oneMinuteAgo = now - 1.minute
-            let twoMinutesAgo = now - 2.minutes
+            let oneMinuteAgo = try #require(now - 1.minute)
+            let twoMinutesAgo = try #require(now - 2.minutes)
 
             #expect(oneMinuteAgo.timeAgoSince(now) == "1 minute ago")
             #expect(twoMinutesAgo.timeAgoSince(now) == "2 minutes ago")
 
-            let inOneHour = now + 1.hour
-            let inTwoHours = now + 2.hours
+            let inOneHour = try #require(now + 1.hour)
+            let inTwoHours = try #require(now + 2.hours)
 
             #expect(inOneHour.timeUntil(now) == "in 1 hour")
             #expect(inTwoHours.timeUntil(now) == "in 2 hours")

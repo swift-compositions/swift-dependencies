@@ -51,3 +51,22 @@ extension `Date Tests`.Test.`Edge Case` {
         #expect(date.previous(-1) == nil)
     }
 }
+
+extension `Date Tests`.Test.Unit {
+
+    @Test
+    func `adding date components with + matches adding(_:)`() throws {
+        let january31 = try #require(Date(year: 2025, month: 1, day: 31))
+        let sum: Date? = january31 + 1.month
+        #expect(sum == january31.adding(1.month))
+        #expect(sum != nil)
+    }
+
+    @Test
+    func `subtracting date components with - matches subtracting(_:)`() throws {
+        let march31 = try #require(Date(year: 2025, month: 3, day: 31))
+        let difference: Date? = march31 - 1.month
+        #expect(difference == march31.subtracting(1.month))
+        #expect(difference != nil)
+    }
+}

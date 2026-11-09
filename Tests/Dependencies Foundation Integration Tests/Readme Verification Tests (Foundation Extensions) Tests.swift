@@ -26,9 +26,9 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
         @Test
         func `Quick Start: Date arithmetic`() async throws {
 
-            let tomorrow = Date() + 1.day
-            let nextWeek = Date() + 1.weekOfYear
-            let complex = Date() + 1.year + 6.months + 2.days
+            let tomorrow = try #require(Date() + 1.day)
+            let nextWeek = try #require(Date() + 1.weekOfYear)
+            let complex = try #require(Date() + (1.year + 6.months + 2.days))
 
             #expect(tomorrow > Date())
             #expect(nextWeek > Date())
@@ -60,17 +60,17 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
         func `Quick Start: Relative formatting`() async throws {
 
             let now = Date()
-            let pastDate = now - 2.hours
+            let pastDate = try #require(now - 2.hours)
             let pastFormatted = pastDate.relativeFormatted
 
-            let futureDate = Date() + 3.days
+            let futureDate = try #require(Date() + 3.days)
             let futureFormatted = futureDate.relativeFormatted
 
             @Dependency(\.calendar) var calendar
-            let todayNoon = now.startOfDay + 12.hours
-            let todayTen = now.startOfDay + 10.hours
+            let todayNoon = try #require(now.startOfDay + 12.hours)
+            let todayTen = try #require(now.startOfDay + 10.hours)
             #expect(todayTen.relativeFormatted(in: calendar, now: todayNoon) == "2 hours ago")
-            let previousDayNoon = todayNoon - 1.day
+            let previousDayNoon = try #require(todayNoon - 1.day)
             #expect(previousDayNoon.relativeFormatted(in: calendar, now: todayNoon) == "yesterday")
             #expect(pastFormatted == (calendar.isDateInYesterday(pastDate) ? "yesterday" : pastDate.timeAgoSince(now, in: calendar)))
             #expect(futureFormatted.contains("day") || futureFormatted.contains("in"))
@@ -116,9 +116,9 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
         func `Usage: Basic date arithmetic`() async throws {
 
             let date = Date()
-            let tomorrow = date + 1.day
-            let lastWeek = date - 1.weekOfYear
-            let nextMonth = date + 1.month
+            let tomorrow = try #require(date + 1.day)
+            let lastWeek = try #require(date - 1.weekOfYear)
+            let nextMonth = try #require(date + 1.month)
 
             #expect(tomorrow > date)
             #expect(lastWeek < date)
@@ -140,7 +140,7 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
         func `Usage: Complex date calculations`() async throws {
 
             let date = Date()
-            let complex = date + 1.year + 6.months + 2.days + 3.hours + 30.minutes
+            let complex = try #require(date + (1.year + 6.months + 2.days + 3.hours + 30.minutes))
 
             #expect(complex > date)
         }
@@ -250,7 +250,7 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
         func `Usage: Date comparisons`() async throws {
 
             let date1 = Date()
-            let date2 = Date() + 1.day
+            let date2 = try #require(Date() + 1.day)
 
             #expect(date2.isAfter(date1) == true)
             #expect(date1.isBefore(date2) == true)
@@ -301,7 +301,7 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
         func `Usage: Time calculations`() async throws {
 
             let startDate = Date()
-            let endDate = Date() + 10.days
+            let endDate = try #require(Date() + 10.days)
 
             let daysBetween = try #require(startDate.daysBetween(endDate))
 
@@ -361,16 +361,16 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
 
             let now = Date()
 
-            let pastDate = now - 2.hours
+            let pastDate = try #require(now - 2.hours)
             let timeAgo = pastDate.timeAgoSince(now)
             let relativeFormatted = pastDate.relativeFormatted
 
             #expect(timeAgo.contains("hour"))
             @Dependency(\.calendar) var calendar
-            let todayNoon = now.startOfDay + 12.hours
-            let todayTen = now.startOfDay + 10.hours
+            let todayNoon = try #require(now.startOfDay + 12.hours)
+            let todayTen = try #require(now.startOfDay + 10.hours)
             #expect(todayTen.relativeFormatted(in: calendar, now: todayNoon) == "2 hours ago")
-            let previousDayNoon = todayNoon - 1.day
+            let previousDayNoon = try #require(todayNoon - 1.day)
             #expect(previousDayNoon.relativeFormatted(in: calendar, now: todayNoon) == "yesterday")
             #expect(relativeFormatted == (calendar.isDateInYesterday(pastDate) ? "yesterday" : pastDate.timeAgoSince(now, in: calendar)))
         }
@@ -379,7 +379,7 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
         func `Usage: Relative date formatting future`() async throws {
 
             let now = Date()
-            let futureDate = now + 3.days
+            let futureDate = try #require(now + 3.days)
             let timeUntil = futureDate.timeUntil(now)
             let relativeFormatted = futureDate.relativeFormatted
 
@@ -392,13 +392,13 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
 
             let now = Date()
 
-            let yesterday = now - 1.day
+            let yesterday = try #require(now - 1.day)
             let yesterdayFormatted = yesterday.relativeFormatted
 
-            let tomorrow = now + 1.day
+            let tomorrow = try #require(now + 1.day)
             let tomorrowFormatted = tomorrow.relativeFormatted
 
-            let recent = now - 5.seconds
+            let recent = try #require(now - 5.seconds)
             let recentFormatted = recent.relativeFormatted
 
             #expect(!yesterdayFormatted.isEmpty)
@@ -449,7 +449,7 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
         func `Usage: Date Components combining`() async throws {
 
             let components = 1.day + 2.hours + 30.minutes
-            let result = Date() + components
+            let result = try #require(Date() + components)
 
             #expect(result > Date())
         }
@@ -461,8 +461,8 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
             let sixMonths = 1.month * 6
 
             let date = Date()
-            let result1 = date + threeDays
-            let result2 = date + sixMonths
+            let result1 = try #require(date + threeDays)
+            let result2 = try #require(date + sixMonths)
 
             #expect(result1 > date)
             #expect(result2 > date)
@@ -474,7 +474,7 @@ extension `Readme Verification Tests (Foundation Extensions) Tests` {
             let difference = 2.weeksOfYear - 3.days
 
             let date = Date()
-            let result = date + difference
+            let result = try #require(date + difference)
 
             #expect(result != date)
         }

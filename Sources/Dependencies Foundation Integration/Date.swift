@@ -18,20 +18,16 @@ extension Date {
     }
 }
 
-public func + (lhs: Date, rhs: DateComponents) -> Date {
-    @Dependency(\.calendar) var calendar
-    guard let result = lhs.adding(rhs, in: calendar) else {
-        preconditionFailure("Adding date components \(rhs) to \(lhs) produced no date")
-    }
-    return result
+/// `lhs` moved forward by `rhs` in the dependency calendar, or `nil` when the
+/// calendar yields no date.
+public func + (lhs: Date, rhs: DateComponents) -> Date? {
+    lhs.adding(rhs)
 }
 
-public func - (lhs: Date, rhs: DateComponents) -> Date {
-    @Dependency(\.calendar) var calendar
-    guard let result = lhs.subtracting(rhs, in: calendar) else {
-        preconditionFailure("Subtracting date components \(rhs) from \(lhs) produced no date")
-    }
-    return result
+/// `lhs` moved back by `rhs` in the dependency calendar, or `nil` when the
+/// calendar yields no date.
+public func - (lhs: Date, rhs: DateComponents) -> Date? {
+    lhs.subtracting(rhs)
 }
 
 extension Date {
