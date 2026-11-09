@@ -44,6 +44,17 @@
         }
 
         @Test
+        func `Each dependency root starts its own test sequence`() {
+            for root in [Dependency<Never>.Context.Root(), Dependency<Never>.Context.Root()] {
+                Dependency<Never>.Context.$root.withValue(root) {
+                    @Dependency(\.uuid) var uuid
+                    #expect(Self.counter(of: uuid()) == 0)
+                    #expect(Self.counter(of: uuid()) == 1)
+                }
+            }
+        }
+
+        @Test
         func `A constant generator repeats its value`() {
             let fixed = RFC_4122.UUID.dns
             withDependencies {

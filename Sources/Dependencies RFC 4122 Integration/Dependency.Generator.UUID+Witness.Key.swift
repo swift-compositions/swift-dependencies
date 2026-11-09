@@ -16,10 +16,14 @@
             }
         }
 
+        /// An incrementing generator starting at zero, one per dependency root.
+        ///
+        /// Each `.dependencies` test root starts its own sequence; reads outside
+        /// any such root share the default root's sequence.
         public static var testValue: Self {
-            shared
+            sequences.generator(for: __DependencyContext.root)
         }
 
-        private static let shared = Self.incrementing
+        private static let sequences = Sequences()
     }
 #endif
