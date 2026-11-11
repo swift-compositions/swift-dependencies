@@ -9,7 +9,11 @@ extension __DependencyValues {
 extension __DependencyValues.ClockKey {
     typealias Value = Clock.`Any`<Duration>
 
-    static var liveValue: Clock.`Any`<Duration> { Clock.`Any`(Swift::ContinuousClock()) }
+    #if hasFeature(Embedded)
+        static var liveValue: Clock.`Any`<Duration> { Clock.`Any`(Clock.Unimplemented()) }
+    #else
+        static var liveValue: Clock.`Any`<Duration> { Clock.`Any`(Swift::ContinuousClock()) }
+    #endif
 
     static var testValue: Clock.`Any`<Duration> { Clock.`Any`(Clock.Immediate()) }
 
