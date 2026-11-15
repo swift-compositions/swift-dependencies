@@ -28,5 +28,7 @@ extension __DependencyValues {
         typealias Value = any Clock.Nonsending<Duration>
 
         static var liveValue: any Clock.Nonsending<Duration> { ContinuousClock() }
+
+        static var testValue: any Clock.Nonsending<Duration> { Clock.Immediate() }
     }
 #endif

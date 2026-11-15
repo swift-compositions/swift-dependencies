@@ -62,6 +62,21 @@ extension `Dependency.Values Clock Tests`.Unit {
     }
 }
 
+extension `Dependency.Values Clock Tests`.Unit {
+    @Test
+    func `test mode resolves the continuous clock to an immediate clock`() async throws {
+        try await withDependencies(mode: .test) {
+            @Dependency(\.continuousClock) var clock
+
+            let wall = ContinuousClock()
+            let start = wall.now
+            try await clock.sleep(for: .seconds(2))
+
+            #expect(start.duration(to: wall.now) < .seconds(1))
+        }
+    }
+}
+
 extension `Dependency.Values Clock Tests`.`Edge Case` {
     @Test
     func `sleeping for a zero duration returns immediately`() async throws {
