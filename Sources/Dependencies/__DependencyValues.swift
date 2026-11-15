@@ -22,7 +22,7 @@ extension __DependencyValues {
 
     #if hasFeature(Embedded)
         /// The clock features sleep on. Under Embedded Swift it is a clock over the host's timers, which the
-        /// program sets; a test's wakes at once.
+        /// program must set: it has no live value, so reading it unset fails. A test's wakes at once.
         public var continuousClock: Clock.Hosted {
             get { self[ContinuousClockKey.self] }
             set { self[ContinuousClockKey.self] = newValue }
