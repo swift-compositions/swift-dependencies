@@ -152,6 +152,7 @@ let package = Package(
             dependencies: [
                 .target(name: "Dependencies Environment Integration"),
                 .target(name: "Dependencies Test Support"),
+                .product(name: "Environment", package: "swift-environment"),
             ],
             path: "Tests/Dependencies Environment Integration Tests"
         ),
