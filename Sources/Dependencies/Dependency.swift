@@ -40,6 +40,19 @@ public struct Dependency<Value: Sendable>: Sendable {
         self.line = line
     }
 
+    /// Reads the dependency through a closure, the form Embedded Swift accepts, where key paths are not.
+    @inlinable
+    public init(
+        _ read: @escaping @Sendable (__DependencyValues) -> Value,
+        fileID: StaticString = #fileID,
+        line: UInt = #line
+    ) {
+        self.accessor = .closure(read)
+        self.initial = __DependencyContext.current
+        self.fileID = fileID
+        self.line = line
+    }
+
     /// A property wrapper's `wrappedValue` has to be declared in its body.
     @inlinable
     public var wrappedValue: Value {

@@ -44,6 +44,24 @@ extension `Dependency.Values Clock Tests`.Unit {
     }
 }
 
+extension `Dependency.Values Clock Tests`.Unit {
+    @Test
+    func `a dependency read through a closure sees the override`() async {
+        let test = Clock.Test()
+
+        await withDependencies {
+            $0.clock = Clock.`Any`(test)
+        } operation: {
+            @Dependency({ $0.clock }) var clock
+
+            let before = clock.now
+            await test.advance(by: .seconds(3))
+
+            #expect(before.duration(to: clock.now) == .seconds(3))
+        }
+    }
+}
+
 extension `Dependency.Values Clock Tests`.`Edge Case` {
     @Test
     func `sleeping for a zero duration returns immediately`() async throws {
